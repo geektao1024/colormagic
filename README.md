@@ -57,8 +57,9 @@ We use the awesome [@tanstack/vue-query](https://github.com/TanStack/query) for 
 
 You can find the available public API endpoints [here](https://colormagic.app/api).
 
+
 Please note: This API may be removed or changed at anytime, without warning. Use at your own risk.
 
 ## <a name="contribute">❤️ Contribute</a>
 
-Feel free to suggest fixes or help with new features! ss所属
+Feel free to suggest fixes or help with new features! ss
