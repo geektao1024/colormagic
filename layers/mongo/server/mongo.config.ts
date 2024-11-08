@@ -1,5 +1,10 @@
-const mongoConfig = {
-  url: useRuntimeConfig().mongo.url
-};
+import { useRuntimeConfig } from '#imports';
 
-export default mongoConfig;
+function getMongoConfig() {
+  const config = useRuntimeConfig();
+  return {
+    url: config.mongo.url
+  };
+}
+
+export default getMongoConfig;
