@@ -188,7 +188,7 @@ const toolsLinks = computed(() => [{
 const moreLinks = computed(() => [
   {
     label: t('nav.contact'),
-    to: 'mailto:hello@colormagic.club'
+    to: 'mailto:hello@colormagic.app'
   },
   {
     label: t('nav.suggestIdea'),

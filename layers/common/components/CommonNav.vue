@@ -71,6 +71,15 @@
         <!-- lang switcher-->
         <CommonLangSwitcher />
 
+        <!-- login button -->
+        <UButton
+          v-if="!user"
+          :to="localePath('/login')"
+          :label="t('nav.login')"
+          class="hidden sm:flex"
+          size="sm"
+        />
+
         <!-- mobile bars button -->
         <UButton
           icon="i-heroicons-bars-3"
