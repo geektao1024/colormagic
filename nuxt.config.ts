@@ -90,5 +90,12 @@ export default defineNuxtConfig({
         flag: '🇮🇹'
       }
     ]
+  },
+  plausible: {
+    domain: 'colormagic.club',
+    apiHost: 'https://plausible.io',
+    trackLocalhost: false,
+    autoPageviews: true,
+    autoOutboundTracking: true
   }
 });

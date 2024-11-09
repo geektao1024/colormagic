@@ -16,9 +16,6 @@
     <!-- footer -->
     <CommonFooter />
 
-    <!-- floating donate button -->
-    <CommonFloatingButton />
-
     <!-- global notifications -->
     <UNotifications>
       <template #description="{ description }">
@@ -33,7 +30,30 @@
 import { useLocalStorage } from '@vueuse/core';
 
 const { siteUrl } = useRuntimeConfig().public;
-const { path } = useRoute();
+const route = useRoute();
+const { locale, defaultLocale } = useI18n();
+
+// 构建规范的 canonical URL
+const canonicalUrl = computed(() => {
+  let path = route.path;
+  
+  // 如果是默认语言,移除语言前缀
+  if (locale.value === defaultLocale && path.startsWith(`/${locale.value}`)) {
+    path = path.substring(locale.value.length + 1);
+  }
+  
+  // 确保路径以 / 开头
+  if (!path.startsWith('/')) {
+    path = '/' + path;
+  }
+  
+  // 移除尾部斜杠(除了首页)
+  if (path !== '/' && path.endsWith('/')) {
+    path = path.slice(0, -1);
+  }
+
+  return `${siteUrl}${path}`;
+});
 
 const head = useLocaleHead({
   addDirAttribute: true,
@@ -45,12 +65,19 @@ useHead({
   htmlAttrs: {
     lang: head.value.htmlAttrs.lang
   },
-  link: [...(head.value.link ?? [])],
+  link: [
+    // 添加 canonical 链接
+    {
+      rel: 'canonical',
+      href: canonicalUrl
+    },
+    ...(head.value.link ?? [])
+  ],
   meta: [...(head.value.meta ?? [])]
 });
 
 useServerSeoMeta({
-  ogUrl: `${siteUrl}${path}`,
+  ogUrl: canonicalUrl,
   ogType: 'website'
 });
 

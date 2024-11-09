@@ -12,8 +12,8 @@
       If you were a previous subscriber, we've canceled your subscription so there will be no more payments. If you
       require a prorated refund please reach out to us on <a
         class="text-primary underline"
-        href="mailto:hello@colormagic.app"
-      >hello@colormagic.app</a>.
+        href="mailto:hello@colormagic.club"
+      >hello@colormagic.club</a>.
     </p>
     <p>
       We're going to be making some improvements over the coming future, as well as adding other

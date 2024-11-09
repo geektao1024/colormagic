@@ -68,35 +68,8 @@
 
       <!-- right -->
       <div class="flex items-center gap-2 sm:gap-4">
-        <UButton
-          icon="i-fa6-brands-github"
-          variant="ghost"
-          color="gray"
-          to="https://github.com/timb-103/colormagic"
-          class="hidden sm:flex"
-        />
-
         <!-- lang switcher-->
         <CommonLangSwitcher />
-
-        <!-- login button -->
-        <ClientOnly>
-          <UButton
-            v-if="!user && !useRoute().path.includes('/login')"
-            label="Login"
-            color="primary"
-            to="/login"
-          />
-
-          <!-- profile menu -->
-          <UDropdown
-            v-else-if="user"
-            :items="userItems"
-            :popper="{ placement: 'bottom-end' }"
-          >
-            <UButton icon="i-heroicons-user" />
-          </UDropdown>
-        </ClientOnly>
 
         <!-- mobile bars button -->
         <UButton
