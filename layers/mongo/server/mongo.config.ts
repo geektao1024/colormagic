@@ -1,10 +1,16 @@
 import { useRuntimeConfig } from '#imports';
 
-function getMongoConfig() {
+interface MongoConfig {
+  url: string;
+}
+
+function getMongoConfig(): MongoConfig {
   const config = useRuntimeConfig();
   return {
     url: config.mongo.url
   };
 }
 
-export default getMongoConfig;
+const mongoConfig = getMongoConfig();
+
+export default mongoConfig;
