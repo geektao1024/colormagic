@@ -1,11 +1,11 @@
 import type { Logger } from 'pino';
 import { getAIModule, type AIModule } from '~/layers/ai/server/ai.module';
 import { getAuthModule, type AuthModule } from '~/layers/auth/server/auth.module';
+import { getDeepseekModule } from '~/layers/deepseek/server/deepseek.module';
 import { getGoogleModule, type GoogleModule } from '~/layers/google/server/google.module';
 import { getLoggerModule } from '~/layers/log/server/logger.module';
 import { getMongoModule } from '~/layers/mongo/server/mongo.module';
 import { getOgModule, type OgModule } from '~/layers/og/server/og.module';
-import { getOpenAIModule } from '~/layers/openai/server/openai.module';
 import { getPaletteModule, type PaletteModule } from '~/layers/palette/server/palette.module';
 import { getUserModule, type UserModule } from '~/layers/user/server/user.module';
 
@@ -33,8 +33,8 @@ export async function setup(): Promise<void> {
     const db = mongodb.db();
 
     logger.info('initializing modules and resolving dependencies');
-    const openai = getOpenAIModule(logger);
-    const ai = getAIModule(logger, openai.service);
+    const deepseek = getDeepseekModule(logger);
+    const ai = getAIModule(logger, deepseek.service);
     const palette = getPaletteModule(db, logger, ai.service);
     const og = getOgModule(logger, palette.service);
     const user = getUserModule(db, logger);

@@ -1,6 +1,6 @@
 import type { Logger } from 'pino';
 import { AIService } from './services/ai.service';
-import type { OpenAIService } from '~/layers/openai/server/services/openai.service';
+import type { DeepseekService } from '~/layers/deepseek/server/services/deepseek.service';
 
 export interface AIModule {
   service: AIService
@@ -13,11 +13,11 @@ export interface AIModule {
 
 export function getAIModule(
   logger: Logger,
-  openAIService: OpenAIService
+  deepseekService: DeepseekService
 ): AIModule {
   logger.info('initializing ai module');
 
-  const service = new AIService(openAIService);
+  const service = new AIService(deepseekService);
 
   return {
     service
