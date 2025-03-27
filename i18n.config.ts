@@ -41,7 +41,64 @@ export default defineI18nConfig(() => ({
         api: 'Colors API',
         contrastChecker: 'Contrast Checker',
         logout: 'Logout',
-        login: 'Login'
+        login: 'Login',
+        workspace: 'Enter Workspace'
+      },
+      app: {
+        workspace: {
+          title: 'Welcome to ColorMagic Workspace',
+          description: 'Access all your color tools in one place with an optimized workflow.',
+          seoTitle: 'Workspace - ColorMagic',
+          seoDescription: 'Access all your color tools in one place with an optimized workflow.',
+          popularTools: 'Popular Tools',
+          recentPalettes: 'Recently Created Palettes',
+          launch: 'Launch',
+          viewMore: 'View More',
+          createPalette: 'Create a Palette',
+          noPalettes: {
+            title: 'No Recent Palettes',
+            description: 'You haven\'t created any palettes yet. Get started by generating a new color palette.'
+          },
+          contrastChecker: {
+            result: 'Contrast Result',
+            foreground: 'Foreground',
+            background: 'Background'
+          }
+        },
+        palette: {
+          result: 'Generated Palette',
+          generating: 'Generating your color palette...',
+          emptyState: 'Your generated palette will appear here',
+          paletteName: 'Palette Name',
+          clickToCopy: 'Click to copy',
+          colorCopied: 'Color copied to clipboard!',
+          paletteSaved: 'Palette saved successfully!',
+          successGenerated: 'Successfully generated palette:',
+          palettesGenerated: 'color palettes generated since yesterday'
+        },
+        randomColor: {
+          adjust: 'Adjust Color',
+          colorCode: 'Color Code',
+          spacebarTip: 'Press spacebar to generate a random color',
+          showMore: 'Show more colors'
+        },
+        imageColorPicker: {
+          result: 'Extracted Colors',
+          extracting: 'Extracting colors from your image...',
+          emptyState: 'Upload an image to extract colors',
+          colorsExtracted: 'Colors extracted successfully!',
+          paletteCreated: 'Color palette created from image!',
+          savePalette: 'Save as Palette',
+          copyAll: 'Copy All Colors',
+          colorsCopied: 'All colors copied to clipboard!',
+          imageLoadError: 'Error loading image',
+          extractionError: 'Error extracting colors'
+        },
+        contrastChecker: {
+          result: 'Contrast Result',
+          foreground: 'Foreground',
+          background: 'Background'
+        }
       },
       palette: {
         seoTitle: 'ColorMagic - AI Color Palette Generator',
@@ -71,7 +128,9 @@ export default defineI18nConfig(() => ({
         style: 'Style',
         tone: 'Tone',
         season: 'Season',
-        byTag: 'Explore palettes by tag'
+        byTag: 'Explore palettes by tag',
+        loadMore: 'Load more...',
+        noMoreResults: 'No more results'
       },
       exploreTags: {
         title: 'Explore Tags',
@@ -156,7 +215,64 @@ export default defineI18nConfig(() => ({
         api: 'カラーAPI',
         contrastChecker: 'コントラストチェッカー',
         logout: 'ログアウト',
-        login: 'ログイン'
+        login: 'ログイン',
+        workspace: 'ワークスペースに入る'
+      },
+      app: {
+        workspace: {
+          title: 'ColorMagicワークスペースへようこそ',
+          description: '最適化されたワークフローですべてのカラーツールに一箇所からアクセスできます。',
+          seoTitle: 'ワークスペース - ColorMagic',
+          seoDescription: '最適化されたワークフローですべてのカラーツールに一箇所からアクセスできます。',
+          popularTools: '人気ツール',
+          recentPalettes: '最近作成されたパレット',
+          launch: '起動',
+          viewMore: 'もっと見る',
+          createPalette: 'パレットを作成',
+          noPalettes: {
+            title: '最近のパレットはありません',
+            description: 'まだパレットを作成していません。新しいカラーパレットを生成して始めましょう。'
+          },
+          contrastChecker: {
+            result: 'コントラスト結果',
+            foreground: '前景',
+            background: '背景'
+          }
+        },
+        palette: {
+          result: '生成されたパレット',
+          generating: 'カラーパレットを生成中...',
+          emptyState: '生成されたパレットがここに表示されます',
+          paletteName: 'パレット名',
+          clickToCopy: 'クリックしてコピー',
+          colorCopied: 'カラーをクリップボードにコピーしました！',
+          paletteSaved: 'パレットが正常に保存されました！',
+          successGenerated: 'パレットの生成に成功しました:',
+          palettesGenerated: '昨日からの色パレット生成数'
+        },
+        randomColor: {
+          adjust: '色の調整',
+          colorCode: 'カラーコード',
+          spacebarTip: 'スペースキーを押してランダムな色を生成',
+          showMore: 'もっと色を表示'
+        },
+        imageColorPicker: {
+          result: '抽出された色',
+          extracting: '画像から色を抽出中...',
+          emptyState: '画像をアップロードして色を抽出',
+          colorsExtracted: '色の抽出に成功しました！',
+          paletteCreated: '画像からカラーパレットを作成しました！',
+          savePalette: 'パレットとして保存',
+          copyAll: 'すべての色をコピー',
+          colorsCopied: 'すべての色をクリップボードにコピーしました！',
+          imageLoadError: '画像の読み込みエラー',
+          extractionError: '色の抽出エラー'
+        },
+        contrastChecker: {
+          result: 'コントラスト結果',
+          foreground: '前景',
+          background: '背景'
+        }
       },
       palette: {
         seoTitle: 'あなたの思い描く色をかんたんに',
@@ -186,7 +302,9 @@ export default defineI18nConfig(() => ({
         style: 'スタイル',
         tone: 'トーン',
         season: '季節',
-        byTag: 'タグ別にパレットを探索する'
+        byTag: 'タグ別にパレットを探索する',
+        loadMore: 'もっと読み込む...',
+        noMoreResults: '結果はこれ以上ありません'
       },
       exploreTags: {
         title: 'タグを探索',
@@ -271,7 +389,64 @@ export default defineI18nConfig(() => ({
         api: 'API dei colori',
         contrastChecker: 'Controllo Contrasto',
         logout: 'Esci',
-        login: 'Login'
+        login: 'Login',
+        workspace: 'Entra nell\'area di lavoro'
+      },
+      app: {
+        workspace: {
+          title: 'Benvenuto nell\'area di lavoro ColorMagic',
+          description: 'Accedi a tutti i tuoi strumenti di colore in un unico posto con un flusso di lavoro ottimizzato.',
+          seoTitle: 'Area di lavoro - ColorMagic',
+          seoDescription: 'Accedi a tutti i tuoi strumenti di colore in un unico posto con un flusso di lavoro ottimizzato.',
+          popularTools: 'Strumenti popolari',
+          recentPalettes: 'Palette create di recente',
+          launch: 'Avvia',
+          viewMore: 'Vedi altro',
+          createPalette: 'Crea una palette',
+          noPalettes: {
+            title: 'Nessuna palette recente',
+            description: 'Non hai ancora creato palette. Inizia generando una nuova palette di colori.'
+          },
+          contrastChecker: {
+            result: 'Risultato Contrasto',
+            foreground: 'Primo Piano',
+            background: 'Sfondo'
+          }
+        },
+        palette: {
+          result: 'Palette generata',
+          generating: 'Generazione della tua palette di colori...',
+          emptyState: 'La tua palette generata apparirà qui',
+          paletteName: 'Nome Palette',
+          clickToCopy: 'Clicca per copiare',
+          colorCopied: 'Colore copiato negli appunti!',
+          paletteSaved: 'Palette salvata con successo!',
+          successGenerated: 'Palette generata con successo:',
+          palettesGenerated: 'palette di colori generate da ieri'
+        },
+        randomColor: {
+          adjust: 'Regola Colore',
+          colorCode: 'Codice Colore',
+          spacebarTip: 'Premi la barra spaziatrice per generare un colore casuale',
+          showMore: 'Mostra più colori'
+        },
+        imageColorPicker: {
+          result: 'Colori Estratti',
+          extracting: 'Estrazione dei colori dalla tua immagine...',
+          emptyState: 'Carica un\'immagine per estrarre i colori',
+          colorsExtracted: 'Colori estratti con successo!',
+          paletteCreated: 'Palette di colori creata dall\'immagine!',
+          savePalette: 'Salva come Palette',
+          copyAll: 'Copia Tutti i Colori',
+          colorsCopied: 'Tutti i colori copiati negli appunti!',
+          imageLoadError: 'Errore nel caricamento dell\'immagine',
+          extractionError: 'Errore nell\'estrazione dei colori'
+        },
+        contrastChecker: {
+          result: 'Risultato Contrasto',
+          foreground: 'Primo Piano',
+          background: 'Sfondo'
+        }
       },
       palette: {
         seoTitle: 'Genera la tua palette di colori ideale',
@@ -301,7 +476,9 @@ export default defineI18nConfig(() => ({
         style: 'Stile',
         tone: 'Tono',
         season: 'Stagione',
-        byTag: 'Esplora le tavolozze per tag'
+        byTag: 'Esplora le tavolozze per tag',
+        loadMore: 'Carica altro...',
+        noMoreResults: 'Nessun altro risultato'
       },
       exploreTags: {
         title: 'Esplora Tag',

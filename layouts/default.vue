@@ -1,22 +1,22 @@
 <template>
   <!-- add padding at bottom for floating button -->
-  <div class="pb-16">
+  <div class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
     <NuxtLoadingIndicator color="#5576ff" />
 
-    <!-- nav -->
-    <CommonNav />
+    <!-- 导航 - 使用非简化模式 (带有完整导航链接) -->
+    <CommonNav :simplified="false" />
 
-    <!-- content -->
-    <main>
-      <div class="max-w-3xl mx-auto px-4 pt-8">
+    <!-- 内容 -->
+    <main class="flex-1">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <slot />
       </div>
     </main>
 
-    <!-- footer -->
+    <!-- 页脚 -->
     <CommonFooter />
 
-    <!-- global notifications -->
+    <!-- 全局通知 -->
     <UNotifications>
       <template #description="{ description }">
         <!-- eslint-disable-next-line vue/no-v-html -->
@@ -82,9 +82,10 @@ useServerSeoMeta({
 });
 
 onMounted(() => {
-  /** @description hack to always set to light mode until we add dark mode properly */
-  const colorMode = useLocalStorage('nuxt-color-mode', 'light');
-  colorMode.value = 'light';
-  document.documentElement.classList.remove('dark');
+  /** @description 设置为深色模式 */
+  const colorMode = useLocalStorage('nuxt-color-mode', 'dark');
+  colorMode.value = 'dark';
+  document.documentElement.classList.add('dark');
+  document.documentElement.classList.remove('light');
 });
 </script>

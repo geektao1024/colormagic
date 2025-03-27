@@ -1,10 +1,10 @@
 <template>
-  <footer class="border-t mt-8">
+  <footer class="border-t border-gray-800 mt-8 bg-gray-900">
     <div class="max-w-3xl mx-auto px-4 py-8">
       <div class="mb-8 grid grid-cols-2 sm:grid-cols-[repeat(4,auto)] gap-4 justify-between">
         <!-- website -->
         <div>
-          <p class="text-sm font-semibold mb-2">
+          <p class="text-sm font-semibold mb-2 text-gray-200">
             {{ $t('nav.website') }}
           </p>
           <ul class="flex flex-col gap-1">
@@ -17,7 +17,7 @@
                 :label="item.label"
                 :padded="false"
                 active-class="text-primary"
-                variant="soft"
+                variant="ghost"
                 class="text-gray-400 hover:text-primary"
                 size="md"
               />
@@ -27,7 +27,7 @@
 
         <!-- free tools -->
         <div>
-          <p class="text-sm font-semibold mb-2">
+          <p class="text-sm font-semibold mb-2 text-gray-200">
             {{ $t('nav.freeColorTools') }}
           </p>
           <ul class="flex flex-col gap-1">
@@ -40,7 +40,7 @@
                 :label="item.label"
                 :padded="false"
                 active-class="text-primary"
-                variant="soft"
+                variant="ghost"
                 class="text-gray-400 hover:text-primary"
                 size="md"
               />
@@ -50,7 +50,7 @@
 
         <!-- more -->
         <div>
-          <p class="text-sm font-semibold mb-2">
+          <p class="text-sm font-semibold mb-2 text-gray-200">
             {{ $t('nav.more') }}
           </p>
           <ul class="flex flex-col gap-1">
@@ -63,7 +63,7 @@
                 :label="item.label"
                 :padded="false"
                 active-class="text-primary"
-                variant="soft"
+                variant="ghost"
                 class="text-gray-400 hover:text-primary"
                 size="md"
               />
@@ -73,13 +73,13 @@
 
         <!-- news -->
         <div>
-          <p class="text-sm font-semibold mb-2">
+          <p class="text-sm font-semibold mb-2 text-gray-200">
             {{ $t('nav.news') }}
           </p>
           <ul>
             <li>
               <UButton
-                variant="soft"
+                variant="ghost"
                 class="text-gray-400 hover:text-primary"
                 size="md"
                 :padded="false"
@@ -106,7 +106,7 @@
           :to="switchLocalePath(item.code)"
           class="font-medium text-sm hover:text-primary"
           :class="{
-            'text-black': locale === item.code,
+            'text-gray-200': locale === item.code,
             'text-gray-400': locale !== item.code
           }"
         >
@@ -117,7 +117,9 @@
 
     <!-- free modal -->
     <UModal v-model="isModalOpen">
-      <CommonFreeInfoCard @cancel="closeModal()" />
+      <div class="bg-gray-800 border border-gray-700">
+        <CommonFreeInfoCard @cancel="closeModal()" />
+      </div>
     </UModal>
   </footer>
 </template>
