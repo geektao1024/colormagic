@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-gray-900 text-gray-100">
+  <div class="min-h-screen flex flex-col bg-gray-950 text-gray-100">
     <NuxtLoadingIndicator color="#5576ff" />
 
     <!-- 顶部导航 - 使用简化模式 -->
@@ -8,7 +8,7 @@
     <!-- 主内容区域 - 左侧导航 + 右侧内容 -->
     <div class="flex flex-1 overflow-hidden">
       <!-- 左侧导航栏 -->
-      <div class="w-60 bg-gray-950 border-r border-gray-800 hidden md:block overflow-y-auto shadow-md">
+      <div class="w-60 bg-gray-950 border-r border-gray-800/50 hidden md:block overflow-y-auto shadow-lg">
         <UVerticalNavigation 
           :links="sidebarLinks" 
           class="p-3"
@@ -19,16 +19,16 @@
             grouped: {
               container: 'space-y-2'
             },
-            divider: 'my-3 border-gray-700',
+            divider: 'my-3 border-gray-700/50',
             item: {
-              base: 'group flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium',
-              active: 'bg-gray-800 text-white shadow-sm',
-              inactive: 'text-gray-300 hover:bg-gray-800/80 hover:text-white transition-colors',
+              base: 'group flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200',
+              active: 'bg-gray-800/70 text-primary-400 shadow-sm',
+              inactive: 'text-gray-300 hover:bg-gray-800/50 hover:text-primary-400 transition-all',
               label: 'truncate',
               icon: {
                 base: 'flex-shrink-0 w-5 h-5',
-                active: 'text-white',
-                inactive: 'text-gray-400 group-hover:text-gray-300'
+                active: 'text-primary-400',
+                inactive: 'text-gray-400 group-hover:text-primary-400/70'
               }
             }
           }"
@@ -36,7 +36,7 @@
       </div>
 
       <!-- 右侧内容区域 -->
-      <div class="flex-1 overflow-y-auto bg-gray-900">
+      <div class="flex-1 overflow-y-auto bg-gray-900/90">
         <main class="p-6">
           <slot />
         </main>
@@ -44,7 +44,7 @@
     </div>
 
     <!-- 移动设备的底部导航 -->
-    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-gray-800 z-10 shadow-lg">
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-gray-950/90 backdrop-blur-sm border-t border-gray-800/50 z-10 shadow-lg">
       <div class="flex justify-around items-center h-16">
         <UButton
           v-for="(item, index) in mainNavLinks"
@@ -53,7 +53,7 @@
           :icon="item.icon"
           :aria-label="item.label"
           variant="ghost"
-          class="flex-1 flex flex-col items-center justify-center text-gray-300 hover:text-white transition-colors"
+          class="flex-1 flex flex-col items-center justify-center text-gray-300 hover:text-primary-400 transition-all duration-200"
           :ui="{
             padding: 'py-1 px-2',
             icon: {
@@ -68,7 +68,7 @@
           icon="i-heroicons-bars-3"
           variant="ghost"
           aria-label="更多工具"
-          class="flex-1 flex flex-col items-center justify-center text-gray-300 hover:text-white transition-colors"
+          class="flex-1 flex flex-col items-center justify-center text-gray-300 hover:text-primary-400 transition-all duration-200"
           :ui="{
             padding: 'py-1 px-2',
             icon: {
@@ -86,20 +86,29 @@
     <UModal
       v-model="isMobileNavOpen"
       fullscreen
+      :ui="{ 
+        overlay: { 
+          background: 'bg-gray-950/80 backdrop-blur-sm'
+        },
+        container: {
+          background: 'bg-transparent'
+        }
+      }"
     >
-      <div class="p-4 overflow-auto bg-gray-900 min-h-screen">
+      <div class="p-4 overflow-auto bg-gray-950 min-h-screen">
         <div class="flex items-center justify-between mb-6">
           <!-- logo -->
           <NuxtLinkLocale
             to="/"
             aria-label="Home"
+            class="transition-opacity hover:opacity-80"
           >
             <img
               width="128px"
               height="20.4px"
               src="/img/HorizontalLogo.svg"
               alt="ColorMagic - AI Color Palette generator"
-              class="filter brightness-150"
+              class="filter brightness-200"
             >
           </NuxtLinkLocale>
 
@@ -123,11 +132,11 @@
             grouped: {
               container: 'space-y-2'
             },
-            divider: 'my-3 border-gray-700',
+            divider: 'my-3 border-gray-700/50',
             item: {
-              base: 'group/item flex items-center gap-2 rounded-md px-3.5 py-2.5 text-sm',
-              active: 'bg-gray-800 text-white font-medium',
-              inactive: 'text-gray-300 hover:bg-gray-800 hover:text-white',
+              base: 'group/item flex items-center gap-2 rounded-md px-3.5 py-2.5 text-sm transition-all duration-200',
+              active: 'bg-gray-800/70 text-primary-400 font-medium',
+              inactive: 'text-gray-300 hover:bg-gray-800/50 hover:text-primary-400',
               label: 'truncate font-medium',
               icon: {
                 base: 'flex-shrink-0 w-5 h-5'
@@ -249,7 +258,7 @@ const toolLinksWithHeader = computed(() => [
   {
     label: t('nav.tools'),
     disabled: true,
-    class: 'text-xs text-gray-400 font-semibold px-3 pt-4'
+    class: 'text-xs text-primary-400/80 font-semibold px-3 pt-4'
   },
   ...toolLinks.value
 ]);
@@ -261,7 +270,7 @@ const sidebarLinks = computed(() => [
     {
       label: t('nav.tools'),
       disabled: true,
-      class: 'text-xs text-gray-400 mt-4 mb-1 font-semibold px-3'
+      class: 'text-xs text-primary-400/80 mt-4 mb-1 font-semibold px-3'
     },
     ...toolLinks.value
   ]
