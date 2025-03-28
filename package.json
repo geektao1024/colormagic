@@ -30,7 +30,7 @@
     "got": "11.8.6",
     "jsonwebtoken": "9.0.2",
     "lodash": "^4.17.21",
-    "mongodb": "6.9.0",
+    "mongodb": "^6.9.0",
     "nuxt": "3.13.2",
     "openai": "4.65.0",
     "pino": "8.16.1",

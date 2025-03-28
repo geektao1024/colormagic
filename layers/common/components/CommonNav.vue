@@ -1,19 +1,19 @@
 <template>
-  <nav class="border-b border-gray-800/50 bg-gray-950 backdrop-blur-sm shadow-lg">
-    <div class="max-w-7xl mx-auto flex items-center justify-between h-16 px-4 sm:px-6">
+  <nav class="border-b border-gray-800 bg-gray-900 shadow-md">
+    <div class="w-full flex items-center justify-between h-16 pl-6 pr-4">
       <div class="flex items-center">
         <!-- logo -->
         <NuxtLinkLocale
           to="/"
           aria-label="Home"
-          class="flex-shrink-0 transition-opacity hover:opacity-80"
+          class="flex-shrink-0"
         >
           <img
-            width="128px"
-            height="20.4px"
-            src="/img/HorizontalLogo.svg"
+            width="170px"
+            height="27px"
+            src="/img/HorizontalLogo.svg?v=2"
             alt="ColorMagic - AI Color Palette generator"
-            class="filter brightness-200"
+            class="text-white"
           >
         </NuxtLinkLocale>
 
@@ -25,9 +25,9 @@
               <UButton
                 :to="localePath('/workspace')"
                 :label="t('nav.home')"
-                active-class="text-primary-400 bg-gray-800/70"
+                active-class="text-primary bg-gray-800"
                 variant="ghost"
-                class="hover:text-primary-400 hover:bg-gray-800/50 font-medium text-gray-300 transition-all duration-200"
+                class="hover:text-primary font-medium text-gray-300 transition-colors"
                 size="md"
               />
             </li>
@@ -38,9 +38,9 @@
               <UButton
                 :to="item.to"
                 :label="item.label"
-                active-class="text-primary-400 bg-gray-800/70"
+                active-class="text-primary bg-gray-800"
                 variant="ghost"
-                class="hover:text-primary-400 hover:bg-gray-800/50 font-medium text-gray-300 transition-all duration-200"
+                class="hover:text-primary font-medium text-gray-300 transition-colors"
                 size="md"
               />
             </li>
@@ -54,7 +54,7 @@
           >
             <UButton
               variant="ghost"
-              class="hover:text-primary-400 hover:bg-gray-800/50 font-medium text-gray-300 transition-all duration-200"
+              class="hover:text-primary font-medium text-gray-300 transition-colors"
               size="md"
               icon="i-heroicons-chevron-down-16-solid"
               trailing
@@ -63,14 +63,14 @@
             </UButton>
 
             <template #panel>
-              <div class="p-2 bg-gray-800/90 backdrop-blur-sm border border-gray-700/70 rounded-lg shadow-xl">
+              <div class="p-2 bg-gray-800 border border-gray-700 rounded-lg shadow-lg">
                 <UHeaderPopoverLinks
                   :links="toolsLinks"
                   :ui="{
                     base: 'text-left',
                     wrapper: 'grid gap-2 max-w-xs space-y-0 items-start justify-start text-left',
                     icon: {
-                      base: 'text-primary-400 w-4 h-4 mt-2'
+                      base: 'text-primary w-4 h-4 mt-2'
                     },
                     label: {
                       base: 'font-medium text-gray-200'
@@ -100,7 +100,6 @@
           size="sm"
           variant="outline"
           color="white"
-          :ui="{ rounded: 'rounded-md' }"
         />
 
         <!-- 移动设备菜单按钮 -->
@@ -119,28 +118,20 @@
     <UModal
       v-model="isModalOpen"
       fullscreen
-      :ui="{ 
-        overlay: { 
-          background: 'bg-gray-950/80 backdrop-blur-sm'
-        },
-        container: {
-          background: 'bg-transparent'
-        }
-      }"
     >
-      <div class="p-4 overflow-auto bg-gray-950 min-h-screen">
-        <div class="flex items-center justify-between mb-6">
+      <div class="p-0 overflow-auto bg-gray-900 min-h-screen">
+        <div class="flex items-center justify-between mb-6 pl-6 pr-2">
           <!-- logo -->
           <NuxtLinkLocale
             to="/"
             aria-label="Home"
           >
             <img
-              width="128px"
-              height="20.4px"
-              src="/img/HorizontalLogo.svg"
+              width="170px"
+              height="27px"
+              src="/img/HorizontalLogo.svg?v=2"
               alt="ColorMagic - AI Color Palette generator"
-              class="filter brightness-200"
+              class="text-white"
             >
           </NuxtLinkLocale>
 
@@ -164,11 +155,11 @@
             grouped: {
               container: 'space-y-2'
             },
-            divider: 'my-3 border-gray-700/50',
+            divider: 'my-3 border-gray-700',
             item: {
-              base: 'group/item flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-all duration-200',
-              active: 'bg-gray-800/70 text-primary-400 font-medium',
-              inactive: 'text-gray-300 hover:bg-gray-800/50 hover:text-primary-400',
+              base: 'group/item flex items-center gap-2 rounded-md px-3 py-2 text-sm',
+              active: 'bg-gray-800 text-white font-medium',
+              inactive: 'text-gray-300 hover:bg-gray-800 hover:text-white',
               label: 'truncate font-medium',
               icon: {
                 base: 'flex-shrink-0 w-4 h-4'
@@ -272,7 +263,7 @@ const getNavLinks = computed(() => {
     {
       label: t('nav.tools'),
       disabled: true,
-      class: 'text-xs text-primary-400/80 font-semibold px-3 pt-4'
+      class: 'text-xs text-gray-400 font-semibold px-3 pt-4'
     },
     ...toolsLinks.value
   ];

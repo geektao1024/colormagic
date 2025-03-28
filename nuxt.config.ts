@@ -48,6 +48,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     nodeEnv: process.env.NODE_ENV,
     logLevel: process.env.LOG_LEVEL ?? 'debug',
+    rateLimit: {
+      maxRequests: 100,
+      intervalSeconds: 86400 // 24小时
+    },
     public: {
       nodeEnv: process.env.NODE_ENV,
       siteUrl: process.env.SITE_URL ?? 'http://localhost:3000',

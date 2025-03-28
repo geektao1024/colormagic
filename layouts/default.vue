@@ -1,6 +1,6 @@
 <template>
   <!-- add padding at bottom for floating button -->
-  <div class="bg-gray-950 text-gray-100 min-h-screen flex flex-col">
+  <div class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
     <NuxtLoadingIndicator color="#5576ff" />
 
     <!-- 导航 - 使用非简化模式 (带有完整导航链接) -->
