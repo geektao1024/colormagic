@@ -141,6 +141,29 @@ export class PaletteService {
   }
 
   /**
+   * 安全调用AI服务的方法，带错误处理和回退机制
+   */
+  private async safeCallAiService(prompt: string): Promise<string[]> {
+    try {
+      // 检查方法是否存在
+      if (typeof this.aiService.getByPrompt === 'function') {
+        return await this.aiService.getByPrompt(prompt);
+      } else if (typeof this.aiService.getByString === 'function') {
+        // 尝试备用方法名
+        return await this.aiService.getByString(prompt);
+      } else {
+        // 如果两个方法都不存在，使用备用响应
+        console.error('[Palette] AI服务没有可用的方法来处理提示');
+        return ['#3498DB #2ECC71 #E74C3C #F39C12 #9B59B6 [name:Fallback Palette] [tags:fallback,error,backup]'];
+      }
+    } catch (error) {
+      console.error('[Palette] 调用AI服务时出错:', error);
+      // 返回备用响应
+      return ['#3498DB #2ECC71 #E74C3C #F39C12 #9B59B6 [name:Error Palette] [tags:error,fallback,system]'];
+    }
+  }
+
+  /**
    * 根据提示词获取调色板
    * @private
    */
@@ -155,7 +178,8 @@ export class PaletteService {
     }
 
     const promptTemplate = mapCreatePalettePrompt(prompt);
-    const response = await this.aiService.getByPrompt(promptTemplate);
+    // 使用安全调用方法替代直接调用
+    const response = await this.safeCallAiService(promptTemplate);
 
     const colors = [];
     if (response[0] !== undefined) {
@@ -340,25 +364,34 @@ export class PaletteService {
     return this.repository.count(query);
   }
 
+  /**
+   * 获取标签
+   */
   public async getTags(input?: string): Promise<string[]> {
     if (!input) {
-      return (await this.repository.findTags())
-        .filter((tag) => tag)
-        .flat()
-        .slice(0, 30);
+      try {
+        return (await this.repository.findTags())
+          .filter((tag) => tag)
+          .flat()
+          .slice(0, 30);
+      } catch (error) {
+        console.error('[Palette] 获取所有标签时出错:', error);
+        return [];
+      }
     }
 
     try {
       const prompt = mapTagsPrompt(input);
-      const response = await this.aiService.getByPrompt(prompt);
+      // 使用安全调用方法
+      const response = await this.safeCallAiService(prompt);
 
       return response[0]
         .split(',')
         .map((tag) => tag.trim().replace(/["'`]/g, ''))
         .filter((tag) => tag);
     } catch (error) {
-      console.error('获取标签时出错:', error);
-      return Promise.resolve([]);
+      console.error('[Palette] 获取标签时出错:', error);
+      return input ? [input.toLowerCase()] : [];
     }
   }
 }
