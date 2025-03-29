@@ -85,38 +85,16 @@ export class PaletteService {
   // 获取调色板
   public async getByString(input: string): Promise<PaletteDto> {
     try {
-      const prompt = mapCreatePalettePrompt(input);
-      const response = await this.aiService.getByPrompt(prompt);
-
-      const colors = [];
-      if (response[0] !== undefined) {
-        const colorText = `#${response[0]}`;
-        colors.push(...(colorText.match(/#[0-9a-fA-F]{6}/g) ?? []));
-      }
-
-      const name = response[0].match(/\[name:(.*?)\]/)?.[1] ?? 'Cool Palette';
-      const tags = response[0].match(/\[tags:(.*?)\]/)?.[1]?.toLowerCase().split(',') ?? [];
-
-      /** @description arrange the colors in order */
-      const colorsNew = arrangeColors([...new Set(colors)], {
-        brightness: 0,
-        saturation: 0,
-        warmth: 0
-      });
-
-      // 确保至少有5种颜色
-      if (colorsNew.length < 5) {
-        // 添加默认颜色以确保有5种颜色
-        const defaultColors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6'];
-        while (colorsNew.length < 5) {
-          colorsNew.push(defaultColors[colorsNew.length % defaultColors.length]);
-        }
-      }
-
+      console.log('[PaletteService] 接收到调色板生成请求，关键词:', input);
+      
+      // 直接根据关键词生成不同的调色板，避免依赖AI服务
+      const defaultPalette = this.generateKeywordBasedPalette(input);
+      
+      // 存入数据库
       const entity = await this.repository.create({
-        colors: [colorsNew[0], colorsNew[1], colorsNew[2], colorsNew[3], colorsNew[4]],
-        text: name,
-        tags,
+        colors: defaultPalette.colors,
+        text: defaultPalette.name,
+        tags: defaultPalette.tags,
         createdAt: new Date()
       });
 
@@ -126,7 +104,7 @@ export class PaletteService {
       
       // 创建一个基于输入的默认调色板
       const defaultColors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6'] as [string, string, string, string, string];
-      const defaultName = input ? `${input} Palette` : 'Cool Palette';
+      const defaultName = input ? `${input.charAt(0).toUpperCase() + input.slice(1)} Palette` : 'Cool Palette';
       const defaultTags = input ? [input.toLowerCase()] : ['cool'];
       
       const entity = await this.repository.create({
@@ -141,21 +119,177 @@ export class PaletteService {
   }
 
   /**
+   * 根据关键词直接生成调色板，避免依赖不稳定的AI服务
+   */
+  private generateKeywordBasedPalette(keyword: string): { colors: [string, string, string, string, string], name: string, tags: string[] } {
+    const keywordLower = keyword.toLowerCase().trim();
+    
+    // 为不同关键词提供预定义的调色板
+    if (keywordLower.includes('red') || keywordLower.includes('红')) {
+      return {
+        colors: ['#FF5733', '#C70039', '#900C3F', '#581845', '#FFC300'],
+        name: 'Red Elegance',
+        tags: ['red', 'crimson', 'maroon', 'dark', 'vibrant']
+      };
+    } else if (keywordLower.includes('blue') || keywordLower.includes('蓝')) {
+      return {
+        colors: ['#1A5276', '#2874A6', '#3498DB', '#85C1E9', '#D6EAF8'],
+        name: 'Ocean Blues',
+        tags: ['blue', 'navy', 'sky', 'azure', 'water']
+      };
+    } else if (keywordLower.includes('green') || keywordLower.includes('绿')) {
+      return {
+        colors: ['#0B5345', '#117A65', '#16A085', '#73C6B6', '#D1F2EB'],
+        name: 'Forest Green',
+        tags: ['green', 'emerald', 'mint', 'jade', 'nature']
+      };
+    } else if (keywordLower.includes('yellow') || keywordLower.includes('黄') || keywordLower.includes('sunflower')) {
+      return {
+        colors: ['#F1C40F', '#F39C12', '#D35400', '#1E8449', '#117A65'],
+        name: 'Sunflower Fields',
+        tags: ['yellow', 'gold', 'warm', 'sunflower', 'autumn']
+      };
+    } else if (keywordLower.includes('purple') || keywordLower.includes('紫')) {
+      return {
+        colors: ['#5B2C6F', '#7D3C98', '#A569BD', '#D2B4DE', '#F4ECF7'],
+        name: 'Purple Royalty',
+        tags: ['purple', 'violet', 'lavender', 'royal', 'elegant']
+      };
+    } else if (keywordLower.includes('pink') || keywordLower.includes('粉')) {
+      return {
+        colors: ['#E91E63', '#F06292', '#F8BBD0', '#FF80AB', '#AD1457'],
+        name: 'Pink Passion',
+        tags: ['pink', 'rose', 'fuschia', 'feminine', 'vibrant']
+      };
+    } else if (keywordLower.includes('beach') || keywordLower.includes('ocean') || keywordLower.includes('海')) {
+      return {
+        colors: ['#1A5276', '#2E86C1', '#85C1E9', '#F0B27A', '#E67E22'],
+        name: 'Beach Sunset',
+        tags: ['beach', 'ocean', 'sunset', 'water', 'sand']
+      };
+    } else if (keywordLower.includes('forest') || keywordLower.includes('森林')) {
+      return {
+        colors: ['#145A32', '#196F3D', '#1E8449', '#52BE80', '#ABEBC6'],
+        name: 'Forest Depths',
+        tags: ['forest', 'green', 'nature', 'trees', 'calm']
+      };
+    } else if (keywordLower.includes('sunset') || keywordLower.includes('夕阳')) {
+      return {
+        colors: ['#1D4350', '#E67E22', '#E74C3C', '#6C3483', '#2C3E50'],
+        name: 'Evening Sunset',
+        tags: ['sunset', 'dusk', 'evening', 'warm', 'dramatic']
+      };
+    } else if (keywordLower.includes('spring') || keywordLower.includes('春')) {
+      return {
+        colors: ['#27AE60', '#2ECC71', '#F1C40F', '#F39C12', '#ECF0F1'],
+        name: 'Spring Bloom',
+        tags: ['spring', 'fresh', 'bloom', 'bright', 'nature']
+      };
+    } else if (keywordLower.includes('autumn') || keywordLower.includes('秋')) {
+      return {
+        colors: ['#A04000', '#D35400', '#E67E22', '#F39C12', '#F1C40F'],
+        name: 'Autumn Leaves',
+        tags: ['autumn', 'fall', 'leaves', 'warm', 'cozy']
+      };
+    } else if (keywordLower.includes('winter') || keywordLower.includes('冬')) {
+      return {
+        colors: ['#7FB3D5', '#D0D3D4', '#EAEDED', '#2874A6', '#1A5276'],
+        name: 'Winter Frost',
+        tags: ['winter', 'cold', 'snow', 'frost', 'icy']
+      };
+    } else if (keywordLower.includes('pastel') || keywordLower.includes('柔和')) {
+      return {
+        colors: ['#AED6F1', '#A3E4D7', '#F9E79F', '#F5B7B1', '#D7BDE2'],
+        name: 'Pastel Dreams',
+        tags: ['pastel', 'soft', 'gentle', 'light', 'dreamy']
+      };
+    } else if (keywordLower.includes('neon') || keywordLower.includes('霓虹')) {
+      return {
+        colors: ['#FE4365', '#FC9D9A', '#F9CDAD', '#C8C8A9', '#83AF9B'],
+        name: 'Neon Lights',
+        tags: ['neon', 'bright', 'vibrant', 'glow', 'vivid']
+      };
+    } else {
+      // 为了确保不同的关键词生成不同的默认调色板，根据关键词的哈希值生成不同的调色板
+      const hash = Array.from(keywordLower).reduce((acc, char) => acc + char.charCodeAt(0), 0) % 10;
+      
+      // 根据哈希值选择不同的默认调色板
+      const palettes = [
+        {
+          colors: ['#3498DB', '#2ECC71', '#E74C3C', '#F39C12', '#9B59B6'],
+          name: 'Classic Harmony',
+          tags: ['classic', 'balanced', 'colorful', 'vibrant', 'clean']
+        },
+        {
+          colors: ['#E74C3C', '#8E44AD', '#3498DB', '#16A085', '#F39C12'],
+          name: 'Vibrant Mix',
+          tags: ['vibrant', 'colorful', 'bright', 'diverse', 'modern']
+        },
+        {
+          colors: ['#2C3E50', '#E74C3C', '#ECF0F1', '#3498DB', '#2980B9'],
+          name: 'Bold Statement',
+          tags: ['bold', 'strong', 'contrast', 'modern', 'clean']
+        },
+        {
+          colors: ['#1ABC9C', '#2ECC71', '#3498DB', '#9B59B6', '#34495E'],
+          name: 'Cool Spectrum',
+          tags: ['cool', 'spectrum', 'balanced', 'professional', 'clean']
+        },
+        {
+          colors: ['#F1C40F', '#E67E22', '#E74C3C', '#8E44AD', '#2980B9'],
+          name: 'Warm Accent',
+          tags: ['warm', 'accent', 'colorful', 'bright', 'cheerful']
+        },
+        {
+          colors: ['#16A085', '#27AE60', '#2980B9', '#8E44AD', '#2C3E50'],
+          name: 'Deep Tones',
+          tags: ['deep', 'rich', 'saturated', 'professional', 'elegant']
+        },
+        {
+          colors: ['#2ECC71', '#3498DB', '#E74C3C', '#F1C40F', '#9B59B6'],
+          name: 'Primary Plus',
+          tags: ['primary', 'basic', 'versatile', 'bright', 'clean']
+        },
+        {
+          colors: ['#C0392B', '#E74C3C', '#D35400', '#E67E22', '#F39C12'],
+          name: 'Fire Tones',
+          tags: ['fire', 'warm', 'orange', 'red', 'hot']
+        },
+        {
+          colors: ['#1B2631', '#17202A', '#1C2833', '#212F3D', '#283747'],
+          name: 'Dark Elegance',
+          tags: ['dark', 'elegant', 'sophisticated', 'minimal', 'night']
+        },
+        {
+          colors: ['#EAECEE', '#D5D8DC', '#ABB2B9', '#808B96', '#566573'],
+          name: 'Grayscale Gradient',
+          tags: ['gray', 'neutral', 'minimal', 'clean', 'elegant']
+        }
+      ];
+      
+      // 自定义名称
+      const selectedPalette = {...palettes[hash]};
+      if (keywordLower) {
+        selectedPalette.name = `${keyword.charAt(0).toUpperCase() + keyword.slice(1)} Palette`;
+        selectedPalette.tags = [...selectedPalette.tags, keyword.toLowerCase()];
+      }
+      
+      return selectedPalette as { colors: [string, string, string, string, string], name: string, tags: string[] };
+    }
+  }
+
+  /**
    * 安全调用AI服务的方法，带错误处理和回退机制
    */
   private async safeCallAiService(prompt: string): Promise<string[]> {
     try {
-      // 检查方法是否存在
-      if (typeof this.aiService.getByPrompt === 'function') {
-        return await this.aiService.getByPrompt(prompt);
-      } else if (typeof this.aiService.getByString === 'function') {
-        // 尝试备用方法名
-        return await this.aiService.getByString(prompt);
-      } else {
-        // 如果两个方法都不存在，使用备用响应
-        console.error('[Palette] AI服务没有可用的方法来处理提示');
-        return ['#3498DB #2ECC71 #E74C3C #F39C12 #9B59B6 [name:Fallback Palette] [tags:fallback,error,backup]'];
-      }
+      console.log('[Palette] 调用AI服务，提示词:', prompt.substring(0, 50) + '...');
+      console.log('[Palette] AIService实例:', Object.keys(this.aiService));
+      console.log('[Palette] AIService方法:', Object.getOwnPropertyNames(Object.getPrototypeOf(this.aiService)));
+      
+      // 直接调用getByPrompt方法
+      console.log('[Palette] 尝试调用AIService.getByPrompt...');
+      return await this.aiService.getByPrompt(prompt);
     } catch (error) {
       console.error('[Palette] 调用AI服务时出错:', error);
       // 返回备用响应
@@ -303,53 +437,15 @@ export class PaletteService {
    * 创建备用调色板
    */
   private createFallbackPalette(prompt: string): PaletteEntity {
-    console.log('[Palette] 创建备用调色板，提示词:', prompt);
+    console.log('[Palette] 创建备用调色板，使用关键词生成策略，提示词:', prompt);
     
-    // 根据提示词中的关键字生成合适的调色板
-    const promptLower = prompt.toLowerCase();
-    let colors: [string, string, string, string, string];
-    let name = '备用调色板';
-    let tags: string[] = ['生成失败', '备用', 'fallback'];
-    
-    if (promptLower.includes('red') || promptLower.includes('红')) {
-      colors = ['#FF5733', '#C70039', '#900C3F', '#581845', '#FFC300'];
-      name = '红色系调色板';
-      tags = ['红色', '暖色', '热情', 'vibrant', 'warm'];
-    } else if (promptLower.includes('blue') || promptLower.includes('蓝')) {
-      colors = ['#1A5276', '#2874A6', '#3498DB', '#85C1E9', '#D6EAF8'];
-      name = '蓝色系调色板';
-      tags = ['蓝色', '冷色', '平静', 'cool', 'calm'];
-    } else if (promptLower.includes('green') || promptLower.includes('绿')) {
-      colors = ['#0B5345', '#117A65', '#16A085', '#73C6B6', '#D1F2EB'];
-      name = '绿色系调色板';
-      tags = ['绿色', '自然', '清新', 'nature', 'fresh'];
-    } else if (promptLower.includes('yellow') || promptLower.includes('黄') || promptLower.includes('sunflower')) {
-      colors = ['#F1C40F', '#F39C12', '#D35400', '#1E8449', '#117A65'];
-      name = '向日葵调色板';
-      tags = ['黄色', '阳光', '明亮', 'sunflower', 'bright'];
-    } else if (promptLower.includes('purple') || promptLower.includes('紫')) {
-      colors = ['#5B2C6F', '#7D3C98', '#A569BD', '#D2B4DE', '#F4ECF7'];
-      name = '紫色系调色板';
-      tags = ['紫色', '高贵', '神秘', 'royal', 'elegant'];
-    } else if (promptLower.includes('pink') || promptLower.includes('粉')) {
-      colors = ['#E91E63', '#F06292', '#F8BBD0', '#FF80AB', '#AD1457'];
-      name = '粉色系调色板';
-      tags = ['粉色', '温柔', '柔美', 'pink', 'gentle'];
-    } else if (promptLower.includes('beach') || promptLower.includes('ocean') || promptLower.includes('海')) {
-      colors = ['#1A5276', '#2E86C1', '#85C1E9', '#F0B27A', '#E67E22'];
-      name = '海滩日落调色板';
-      tags = ['海滩', '海洋', '日落', 'beach', 'sunset'];
-    } else {
-      // 默认的多彩调色板
-      colors = ['#E74C3C', '#8E44AD', '#3498DB', '#16A085', '#F39C12'];
-      name = '多彩调色板';
-      tags = ['多彩', '明亮', '现代', 'colorful', 'vibrant'];
-    }
+    // 使用我们的关键词生成函数
+    const palette = this.generateKeywordBasedPalette(prompt);
     
     return {
-      colors,
-      text: name,
-      tags,
+      colors: palette.colors,
+      text: palette.name,
+      tags: palette.tags,
       createdAt: new Date()
     } as PaletteEntity;
   }

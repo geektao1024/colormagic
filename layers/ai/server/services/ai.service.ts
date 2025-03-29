@@ -6,16 +6,27 @@ export class AIService {
   ) {}
 
   public async getByPrompt(prompt: string): Promise<string[]> {
-    const moderations = await this.deepseekService.getModeration(prompt);
+    try {
+      console.log('[AIService] 处理提示词:', prompt);
+      
+      const moderations = await this.deepseekService.getModeration(prompt);
 
-    if (moderations.results[0].flagged) {
-      throw createError({ statusCode: 403, statusMessage: 'Prompt was flagged.' });
+      if (moderations.results[0].flagged) {
+        throw createError({ statusCode: 403, statusMessage: 'Prompt was flagged.' });
+      }
+
+      const response = await this.deepseekService.getByMessages([{
+        content: prompt,
+        role: 'user'
+      }]);
+      
+      console.log('[AIService] DeepSeek返回结果:', response);
+      
+      return response;
+    } catch (error) {
+      console.error('[AIService] 调用DeepSeek服务出错:', error);
+      throw error; // 重新抛出以便上层服务可以处理
     }
-
-    return await this.deepseekService.getByMessages([{
-      content: prompt,
-      role: 'user'
-    }]);
   }
 
   /**
