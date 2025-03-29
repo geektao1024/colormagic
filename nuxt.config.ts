@@ -31,7 +31,8 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxt/ui',
     '@nuxtjs/plausible',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxtjs/sitemap'
   ],
   tailwindcss: {
     viewer: false
@@ -68,7 +69,33 @@ export default defineNuxtConfig({
     '/img/**': { headers: { 'cache-control': 'max-age=31536000' } },
     '/palette/explore': { headers: { 'cache-control': 'max-age=0' } },
     '/palette/explore/*': { headers: { 'cache-control': 'max-age=0' } },
-    '/palette/*': { headers: { 'cache-control': 'max-age=2592000' } }
+    '/palette/*': { headers: { 'cache-control': 'max-age=2592000' } },
+    
+    // SEO 相关的路由规则
+    '/sitemap.xml': { 
+      headers: { 
+        'cache-control': 'max-age=3600',
+        'content-type': 'application/xml'
+      } 
+    },
+    '/sitemap-index.xml': { 
+      headers: { 
+        'cache-control': 'max-age=3600',
+        'content-type': 'application/xml'
+      } 
+    },
+    '/i18n-sitemap.xml': { 
+      headers: { 
+        'cache-control': 'max-age=3600',
+        'content-type': 'application/xml'
+      } 
+    },
+    '/robots.txt': { 
+      headers: { 
+        'cache-control': 'max-age=86400',
+        'content-type': 'text/plain'
+      } 
+    }
   },
   compatibilityDate: '2024-09-23',
   i18n: {
@@ -103,5 +130,21 @@ export default defineNuxtConfig({
     trackLocalhost: false,
     autoPageviews: true,
     autoOutboundTracking: true
+  },
+  // @ts-ignore - Type for sitemap module
+  sitemap: {
+    sitemapName: 'sitemap.xml',
+    siteUrl: process.env.SITE_URL || 'https://colormagic.club',
+    autoI18n: true,
+    excludeRules: [
+      '/login',
+      '/admin/**'
+    ],
+    defaults: {
+      changefreq: 'daily',
+      priority: 0.7,
+      lastmod: new Date()
+    },
+    strictNuxtContentPaths: true,
   }
 });
