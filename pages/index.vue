@@ -107,6 +107,14 @@ useHead({
       content: t('home.seo.description')
     },
     {
+      name: 'keywords',
+      content: 'Color Magic AI design studio, Professional ColorMagic palette creator, Designer-grade color harmonies, Color theory generator, Context-aware palette system, Design-specific color schemes, Color Magic for professionals, WCAG color accessibility tool, Brand color system generator'
+    },
+    {
+      name: 'author',
+      content: 'ColorMagic Team'
+    },
+    {
       property: 'og:title',
       content: t('home.seo.ogTitle')
     },
@@ -117,6 +125,70 @@ useHead({
     {
       property: 'og:image',
       content: `${useRuntimeConfig().public.siteUrl}/img/og.png`
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: `${useRuntimeConfig().public.siteUrl}`
+    },
+    {
+      property: 'og:site_name',
+      content: 'Color Magic - Your Professional AI Palette Studio'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image'
+    },
+    {
+      name: 'twitter:title',
+      content: t('home.seo.ogTitle')
+    },
+    {
+      name: 'twitter:description',
+      content: t('home.seo.ogDescription')
+    },
+    {
+      name: 'twitter:image',
+      content: `${useRuntimeConfig().public.siteUrl}/img/og.png`
+    }
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: `${useRuntimeConfig().public.siteUrl}`
+    }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        'name': 'Color Magic - Your Professional AI Palette Studio',
+        'url': 'https://colormagic.club',
+        'description': t('home.seo.description'),
+        'potentialAction': {
+          '@type': 'SearchAction',
+          'target': 'https://colormagic.club/search?q={search_term_string}',
+          'query-input': 'required name=search_term_string'
+        },
+        'creator': {
+          '@type': 'Organization',
+          'name': 'ColorMagic Team',
+          'email': 'contact@colormagic.club',
+          'sameAs': [
+            'https://instagram.com/colormagic.club'
+          ]
+        },
+        'offers': {
+          '@type': 'Offer',
+          'category': 'Design Tool / Creative Color Solution',
+          'description': 'Color Magic offers designer-grade palette creation using advanced AI technology. Unlike basic generators, our studio provides professional color harmonies with real-time design application previews and expert color theory integration.'
+        }
+      })
     }
   ]
 });

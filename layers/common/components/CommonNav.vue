@@ -219,7 +219,7 @@ const links = computed(() => [
 ]);
 
 const toolsLinks = computed(() => [{
-  to: props.simplified ? localePath('/palette-generator') : localePath('/'),
+  to: localePath('/palette-generator'),
   label: t('nav.colorPaletteGenrator'),
   description: t('home.title'),
   icon: 'i-heroicons-paint-brush'
