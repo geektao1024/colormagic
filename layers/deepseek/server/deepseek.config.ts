@@ -31,7 +31,7 @@ const getApiKey = () => {
 
 const deepseekConfig: DeepseekConfig = {
   apiKey: getApiKey(),
-  apiBase: 'https://api.deepseek-api.vip'
+  apiBase: 'https://api.deepseek.com'
 };
 
 export default deepseekConfig; 
