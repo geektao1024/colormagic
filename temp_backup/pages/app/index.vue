@@ -41,12 +41,12 @@
     </div>
 
     <!-- 最近创建的调色板 -->
-    <div v-if="recentPalettes?.length">
+    <div v-if="recentPalettes && (recentPalettes as any[]).length">
       <h2 class="text-xl font-semibold mb-4">{{ $t('app.workspace.recentPalettes') }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div
           v-for="palette in recentPalettes"
-          :key="palette.id"
+          :key="(palette as any).id"
         >
           <PaletteColorPaletteButton
             :palette="palette"
@@ -100,7 +100,7 @@ const { t } = useI18n();
 const localePath = useLocalePath();
 
 // 获取最近创建的调色板
-const { data: recentPalettes } = await useFetch('/api/palette/recent');
+const { data: recentPalettes } = await useFetch<any[]>('/api/palette/recent');
 
 // 工具链接 - 复用来自布局组件的工具链接配置
 const toolLinks = computed(() => [

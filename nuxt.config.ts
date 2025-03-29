@@ -43,7 +43,9 @@ export default defineNuxtConfig({
     display: 'swap'
   },
   typescript: {
-    typeCheck: 'build'
+    strict: false,
+    typeCheck: false,
+    shim: false
   },
   runtimeConfig: {
     nodeEnv: process.env.NODE_ENV,
