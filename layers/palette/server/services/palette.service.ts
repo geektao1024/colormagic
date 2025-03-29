@@ -107,33 +107,60 @@ export class PaletteService {
   }
 
   public async create(input: string): Promise<PaletteDto> {
-    const prompt = mapCreatePalettePrompt(input);
-    const response = await this.aiService.getByPrompt(prompt);
+    try {
+      const prompt = mapCreatePalettePrompt(input);
+      const response = await this.aiService.getByPrompt(prompt);
 
-    const colors = [];
-    if (response[0] !== undefined) {
-      const colorText = `#${response[0]}`;
-      colors.push(...(colorText.match(/#[0-9a-fA-F]{6}/g) ?? []));
+      const colors = [];
+      if (response[0] !== undefined) {
+        const colorText = `#${response[0]}`;
+        colors.push(...(colorText.match(/#[0-9a-fA-F]{6}/g) ?? []));
+      }
+
+      const name = response[0].match(/\[name:(.*?)\]/)?.[1] ?? 'Cool Palette';
+      const tags = response[0].match(/\[tags:(.*?)\]/)?.[1]?.toLowerCase().split(',') ?? [];
+
+      /** @description arrange the colors in order */
+      const colorsNew = arrangeColors([...new Set(colors)], {
+        brightness: 0,
+        saturation: 0,
+        warmth: 0
+      });
+
+      // 确保至少有5种颜色
+      if (colorsNew.length < 5) {
+        // 添加默认颜色以确保有5种颜色
+        const defaultColors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6'];
+        while (colorsNew.length < 5) {
+          colorsNew.push(defaultColors[colorsNew.length % defaultColors.length]);
+        }
+      }
+
+      const entity = await this.repository.create({
+        colors: [colorsNew[0], colorsNew[1], colorsNew[2], colorsNew[3], colorsNew[4]],
+        text: name,
+        tags,
+        createdAt: new Date()
+      });
+
+      return mapPaletteEntityToDto(entity);
+    } catch (error) {
+      console.error('创建调色板时出错:', error);
+      
+      // 创建一个基于输入的默认调色板
+      const defaultColors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6'] as [string, string, string, string, string];
+      const defaultName = input ? `${input} Palette` : 'Cool Palette';
+      const defaultTags = input ? [input.toLowerCase()] : ['cool'];
+      
+      const entity = await this.repository.create({
+        colors: defaultColors,
+        text: defaultName,
+        tags: defaultTags,
+        createdAt: new Date()
+      });
+      
+      return mapPaletteEntityToDto(entity);
     }
-
-    const name = response[0].match(/\[name:(.*?)\]/)?.[1] ?? 'Cool Palette';
-    const tags = response[0].match(/\[tags:(.*?)\]/)?.[1]?.toLowerCase().split(',') ?? [];
-
-    /** @description arrange the colors in order */
-    const colorsNew = arrangeColors([...new Set(colors)], {
-      brightness: 0,
-      saturation: 0,
-      warmth: 0
-    });
-
-    const entity = await this.repository.create({
-      colors: [colorsNew[0], colorsNew[1], colorsNew[2], colorsNew[3], colorsNew[4]],
-      text: name,
-      tags,
-      createdAt: new Date()
-    });
-
-    return mapPaletteEntityToDto(entity);
   }
 
   public async count(from?: Date): Promise<number> {
