@@ -7,7 +7,167 @@ export default defineI18nConfig(() => ({
         title: 'Generate your ideal color palette',
         seoTitle: 'ColorMagic - AI Color Palette Generator',
         seoDescription: 'ColorMagic is a color palette generator with AI. Enter any keyword and generate a matching color palette.',
-        exampleLabel: 'Try an example:'
+        exampleLabel: 'Try an example:',
+        seo: {
+          title: "Color Magic Studio: Professional AI Color System Generator",
+          description: "Color Magic transforms design workflows with AI-powered professional color systems. Beyond basic generators, ColorMagic offers context-aware palettes with real-time design previews.",
+          ogTitle: "Color Magic Studio: Professional AI Color System Generator | ColorMagic",
+          ogDescription: "Create professional color systems with AI technology that understands color theory principles and design contexts."
+        },
+        hero: {
+          professional: "Professional AI",
+          studio: " Palette Studio",
+          description: "Advanced color theory based AI for designers. Create harmonious color palettes with professional-grade tools and real-time application previews.",
+          createButton: "Create Palette",
+          exploreButton: "Explore Palettes"
+        },
+        features: {
+          title: "Designer-grade ",
+          titleHighlight: "Color Tools",
+          feature1: {
+            title: "AI Color Harmonization",
+            description: "Professional color theory applied with AI algorithms to generate harmonious, balanced palettes that meet professional design standards."
+          },
+          feature2: {
+            title: "Context-aware Palettes",
+            description: "Generate palettes tailored for specific design applications (web, print, UI, branding) ensuring optimal color performance in context."
+          },
+          feature3: {
+            title: "Real-time Design Preview",
+            description: "Instantly see how your palette performs in actual design layouts to evaluate color harmonies and usability."
+          },
+          feature4: {
+            title: "Accessibility Optimization",
+            description: "Analyze color contrast and get WCAG compliance suggestions to ensure designs are both beautiful and accessible."
+          },
+          feature5: {
+            title: "Multiple Export Formats",
+            description: "Export your palettes in various formats including CSS variables, PNG images, and PDF documents for seamless workflow integration."
+          },
+          feature6: {
+            title: "Complete Color Management",
+            description: "Organize, tag, and share professional palettes with detailed notes and project associations to enhance team collaboration."
+          }
+        },
+        tools: {
+          title: "Professional ",
+          titleHighlight: "Color Toolkit",
+          startButton: "Get Started",
+          tool1: {
+            title: "AI Palette Generator",
+            description: "Enter keywords or descriptions and let AI analyze and generate professional design-standard color palettes."
+          },
+          tool2: {
+            title: "Image Color Extractor",
+            description: "Upload images and extract key colors to create professional palettes that match visual styles."
+          },
+          tool3: {
+            title: "Contrast Checker",
+            description: "Analyze color combinations for WCAG accessibility compliance and get optimization recommendations."
+          },
+          tool4: {
+            title: "Random Color Generator",
+            description: "Generate harmonious random color combinations for fresh creative inspiration and design breakthroughs."
+          }
+        },
+        useCases: {
+          titleHighlight: "Perfect for",
+          title: " Design Professionals",
+          case1: {
+            title: "Brand Designers",
+            description: "Develop comprehensive brand identity systems with consistent color hierarchies ensuring unified brand recognition."
+          },
+          case2: {
+            title: "UI/UX Professionals",
+            description: "Create accessible design systems with complete component color states that meet usability standards."
+          },
+          case3: {
+            title: "Art Directors",
+            description: "Establish project color guidelines with contextual application examples to maintain team output consistency."
+          },
+          case4: {
+            title: "Digital Product Teams",
+            description: "Build shared color resources with development-ready implementation to streamline design-to-development handoff."
+          },
+          case5: {
+            title: "Design Educators",
+            description: "Demonstrate professional color theory principles through interactive examples to help students understand design perception."
+          },
+          case6: {
+            title: "Independent Creatives",
+            description: "Access professional-grade color schemes without extensive color theory training to elevate client projects."
+          }
+        },
+        cta: {
+          title: "Start Using Color Magic Today",
+          description: "Join thousands of professional designers saving time and improving design quality with advanced AI color tools.",
+          tryButton: "Try For Free",
+          exploreButton: "Explore Examples"
+        },
+        faq: {
+          title: "Frequently Asked Questions",
+          question1: "How is ColorMagic different from other palette generators?",
+          answer1: "Unlike basic generators using fixed rules, ColorMagic applies advanced AI and color theory principles, considers design context, and offers professional-grade palettes with real-time preview capabilities.",
+          question2: "Do I need a professional design background to use ColorMagic?",
+          answer2: "No. While ColorMagic offers advanced features for professionals, its intuitive interface and AI assistance allow anyone to create professional-grade palettes without extensive color theory knowledge.",
+          question3: "Can I use ColorMagic palettes for commercial projects?",
+          answer3: "Yes, all palettes generated through ColorMagic can be used for both personal and commercial projects without attribution or additional licensing.",
+          question4: "How does ColorMagic ensure accessibility compliance?",
+          answer4: "Our system automatically analyzes color contrast and provides recommendations based on WCAG guidelines to ensure designs are both beautiful and accessibility-compliant.",
+          question5: "Can I integrate ColorMagic with other design tools?",
+          answer5: "Yes, ColorMagic supports multiple export formats (CSS, PNG, PDF) that seamlessly integrate with mainstream design tools and development workflows."
+        },
+        banner: {
+          palette: {
+            title: 'Create Perfect',
+            titleHtml: 'Create Perfect<span class="bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] bg-clip-text text-transparent">Color Schemes</span>',
+            description: 'Enter keywords or upload images and AI will generate professional-grade harmonious color schemes for all your design needs.',
+            buttonText: 'Create Palette'
+          },
+          random: {
+            title: 'Random Colors',
+            titleHtml: 'Discover Perfect<span class="bg-gradient-to-r from-[#2196F3] to-[#03A9F4] bg-clip-text text-transparent">Random Colors</span>',
+            description: 'Generate random color combinations with a single click to break creative blocks and find inspiration effortlessly.',
+            buttonText: 'Explore Random Colors'
+          },
+          image: {
+            title: 'Image Extraction',
+            titleHtml: 'Extract Colors<span class="bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] bg-clip-text text-transparent">From Images</span>',
+            description: 'Upload any image and AI will automatically analyze and extract key colors to create the perfect color scheme.',
+            buttonText: 'Upload Image'
+          },
+          contrast: {
+            title: 'Contrast Check',
+            titleHtml: 'Ensure Color<span class="bg-gradient-to-r from-[#9C27B0] to-[#673AB7] bg-clip-text text-transparent">Accessibility</span>',
+            description: 'Check if your color combinations comply with WCAG accessibility standards to ensure designs that are both beautiful and practical.',
+            buttonText: 'Check Contrast'
+          }
+        },
+        aiColorTools: 'AI Color Tools',
+        viewAll: 'View All',
+        featuredPalettes: 'Featured Palettes',
+        viewMore: 'View More',
+        startCreating: 'Start Creating',
+        startExtracting: 'Extract Colors',
+        startChecking: 'Check Contrast',
+        colorCopied: 'Color Copied',
+        paletteCopied: 'Palette Copied',
+        addedToFavorites: 'Added to Favorites',
+        removedFromFavorites: 'Removed from Favorites',
+        recentActivity: 'Recent Activity',
+        createdAt: 'Created at',
+        createMorePalettes: 'Create More Palettes',
+        noPalettes: {
+          title: 'No Palettes Created Yet',
+          description: 'Start using our AI tools to create and manage your color palettes, and they will appear here.'
+        },
+        createFirstPalette: 'Create Your First Palette',
+        palettes: {
+          sunset: 'Sunset Gradient',
+          ocean: 'Ocean Fresh',
+          violet: 'Violet Dream'
+        },
+        tryNow: 'Try Now'
       },
       recent: {
         seoTitle: 'Recent - ColorMagic - AI Color Palette Generator',
@@ -92,13 +252,26 @@ export default defineI18nConfig(() => ({
           copyAll: 'Copy All Colors',
           colorsCopied: 'All colors copied to clipboard!',
           imageLoadError: 'Error loading image',
-          extractionError: 'Error extracting colors'
+          extractionError: 'Error extracting colors',
+          useImage: 'Use This Image',
+          hoverToExtract: 'Hover to extract colors',
+          description: 'Extract colors from this image',
+          imageNames: {
+            image1: 'Autumn Forest',
+            image2: 'Mountain Lake',
+            image3: 'Sunny Field',
+            image4: 'Beach Sunset',
+            image5: 'Vibrant Buildings',
+            image6: 'Desert Landscape'
+          }
         },
         contrastChecker: {
           result: 'Contrast Result',
           foreground: 'Foreground',
           background: 'Background'
-        }
+        },
+        copied: 'Color Copied',
+        copyError: 'Failed to copy'
       },
       palette: {
         seoTitle: 'ColorMagic - AI Color Palette Generator',
@@ -141,7 +314,17 @@ export default defineI18nConfig(() => ({
         title: 'Image Color Picker',
         seoTitle: 'Image Color Picker - ColorMagic',
         seoDescription: 'Extract and pick a beatiful color scheme from any image with AI.',
-        uploadPlaceholder: 'Upload an Image'
+        uploadPlaceholder: 'Upload an Image',
+        sampleTitle: 'Sample Image {number}',
+        description: 'Extract colors from this image',
+        imageNames: {
+          image1: 'Autumn Forest',
+          image2: 'Mountain Lake',
+          image3: 'Sunny Field',
+          image4: 'Beach Sunset',
+          image5: 'Vibrant Buildings',
+          image6: 'Desert Landscape'
+        }
       },
       api: {
         title: 'Color API',
@@ -181,7 +364,8 @@ export default defineI18nConfig(() => ({
         title: 'あなたの思い描く色をかんたんに',
         seoTitle: 'あなたの思い描く色をかんたんに',
         seoDescription: 'ColorMagicは、AIでオリジナルのカラーパレットをつくれるサービスです。\n雰囲気やイメージのキーワードから、今すぐ使える配色を簡単に生成できます',
-        exampleLabel: '例を試してみてください:'
+        exampleLabel: '例を試してみてください:',
+        tryNow: '今すぐ試す'
       },
       recent: {
         seoTitle: '最近 あなたの思い描く色をかんたんに',
@@ -266,13 +450,26 @@ export default defineI18nConfig(() => ({
           copyAll: 'すべての色をコピー',
           colorsCopied: 'すべての色をクリップボードにコピーしました！',
           imageLoadError: '画像の読み込みエラー',
-          extractionError: '色の抽出エラー'
+          extractionError: '色の抽出エラー',
+          useImage: 'この画像を使用',
+          hoverToExtract: 'ホバーして色を抽出',
+          description: 'この画像から色を抽出する',
+          imageNames: {
+            image1: '秋の森',
+            image2: '山の湖',
+            image3: '晴れた畑',
+            image4: '海辺の夕日',
+            image5: '鮮やかな建物',
+            image6: '砂漠の風景'
+          }
         },
         contrastChecker: {
           result: 'コントラスト結果',
           foreground: '前景',
           background: '背景'
-        }
+        },
+        copied: '色をコピーしました',
+        copyError: 'コピーに失敗しました'
       },
       palette: {
         seoTitle: 'あなたの思い描く色をかんたんに',
@@ -315,7 +512,17 @@ export default defineI18nConfig(() => ({
         title: '画像カラーピッカー',
         seoTitle: '画像カラーピッカー - ColorMagic',
         seoDescription: 'AI を使用して、あらゆる画像から美しい配色を抽出して選択します。',
-        uploadPlaceholder: '画像をアップロードする'
+        uploadPlaceholder: '画像をアップロードする',
+        sampleTitle: 'サンプル画像 {number}',
+        description: 'この画像から色を抽出する',
+        imageNames: {
+          image1: '秋の森',
+          image2: '山の湖',
+          image3: '晴れた畑',
+          image4: '海辺の夕日',
+          image5: '鮮やかな建物',
+          image6: '砂漠の風景'
+        }
       },
       api: {
         title: 'カラーAPI',
@@ -355,7 +562,8 @@ export default defineI18nConfig(() => ({
         title: 'Genera la tua palette di colori ideale',
         seoTitle: 'Genera la tua palette di colori ideale',
         seoDescription: 'ColorMagic è un generatore di palette di colori con IA. Inserisci qualsiasi parola chiave e genera una palette corrispondente.',
-        exampleLabel: 'Prova un esempio:'
+        exampleLabel: 'Prova un esempio:',
+        tryNow: 'Prova ora'
       },
       recent: {
         seoTitle: 'Recenti - ColorMagic - AI Color Palette Generator',
@@ -440,13 +648,26 @@ export default defineI18nConfig(() => ({
           copyAll: 'Copia Tutti i Colori',
           colorsCopied: 'Tutti i colori copiati negli appunti!',
           imageLoadError: 'Errore nel caricamento dell\'immagine',
-          extractionError: 'Errore nell\'estrazione dei colori'
+          extractionError: 'Errore nell\'estrazione dei colori',
+          useImage: 'Usa questa immagine',
+          hoverToExtract: 'Passa il mouse per estrarre i colori',
+          description: 'Estrai i colori da questa immagine',
+          imageNames: {
+            image1: 'Foresta Autunnale',
+            image2: 'Lago di Montagna',
+            image3: 'Campo Soleggiato',
+            image4: 'Tramonto sulla Spiaggia',
+            image5: 'Edifici Vibranti',
+            image6: 'Paesaggio Desertico'
+          }
         },
         contrastChecker: {
           result: 'Risultato Contrasto',
           foreground: 'Primo Piano',
           background: 'Sfondo'
-        }
+        },
+        copied: 'Colore Copiato',
+        copyError: 'Errore durante la copia'
       },
       palette: {
         seoTitle: 'Genera la tua palette di colori ideale',
@@ -489,7 +710,17 @@ export default defineI18nConfig(() => ({
         title: 'Selettore colore immagine',
         seoTitle: 'Selettore colore immagine - ColorMagic',
         seoDescription: 'Estrai e scegli una bellissima combinazione di colori da qualsiasi immagine con l\'intelligenza artificiale.',
-        uploadPlaceholder: 'Carica un\'immagine'
+        uploadPlaceholder: 'Carica un\'immagine',
+        sampleTitle: 'Immagine di esempio {number}',
+        description: 'Estrai i colori da questa immagine',
+        imageNames: {
+          image1: 'Foresta Autunnale',
+          image2: 'Lago di Montagna',
+          image3: 'Campo Soleggiato',
+          image4: 'Tramonto sulla Spiaggia',
+          image5: 'Edifici Vibranti',
+          image6: 'Paesaggio Desertico'
+        }
       },
       api: {
         title: 'API dei colori',
@@ -523,6 +754,7 @@ export default defineI18nConfig(() => ({
         seoDescription: 'Accedi a like, preferiti e altre funzionalità in arrivo effettuando il login su ColorMagic.',
         google: 'Accedi con Google'
       }
-    }
+    },
+    
   }
 }));

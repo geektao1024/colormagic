@@ -20,3 +20,29 @@ body {
   }
 
   /* 移除了旧的垂直导航栏样式 */
+
+  /* 自定义动画 */
+  @keyframes float {
+    0% { transform: translateY(0px) rotate(-12deg); }
+    50% { transform: translateY(-10px) rotate(-8deg); }
+    100% { transform: translateY(0px) rotate(-12deg); }
+  }
+
+  @keyframes float-slow {
+    0% { transform: translateY(0px) rotate(12deg); }
+    50% { transform: translateY(-15px) rotate(15deg); }
+    100% { transform: translateY(0px) rotate(12deg); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-slow {
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  /* 渐变文字 */
+  .gradient-text {
+    @apply bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] bg-clip-text text-transparent;
+  }

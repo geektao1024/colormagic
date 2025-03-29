@@ -8,7 +8,7 @@
 
     <!-- 内容 -->
     <main class="flex-1">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+      <div class="w-full max-w-[98%] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-4">
         <slot />
       </div>
     </main>
