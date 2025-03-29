@@ -57,10 +57,8 @@ export default defineNuxtConfig({
     },
     public: {
       nodeEnv: process.env.NODE_ENV,
-      siteUrl: process.env.SITE_URL ?? 'http://localhost:3000',
-      apiUrl: process.env.SITE_URL !== undefined
-        ? `${process.env.SITE_URL}/api`
-        : 'http://localhost:3000/api'
+      siteUrl: 'https://colormagic.club',
+      apiUrl: 'https://colormagic.club/api'
     }
   },
   routeRules: {
@@ -101,7 +99,7 @@ export default defineNuxtConfig({
   i18n: {
     strategy: 'prefix_except_default',
     defaultLocale: 'en',
-    baseUrl: process.env.SITE_URL ?? 'http://localhost:3000',
+    baseUrl: 'https://colormagic.club',
     detectBrowserLanguage: false,
     locales: [
       {
@@ -134,7 +132,7 @@ export default defineNuxtConfig({
   // @ts-ignore - Type for sitemap module
   sitemap: {
     sitemapName: 'sitemap.xml',
-    siteUrl: process.env.SITE_URL || 'https://colormagic.club',
+    siteUrl: 'https://colormagic.club',
     autoI18n: true,
     excludeRules: [
       '/login',

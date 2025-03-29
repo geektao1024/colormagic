@@ -2,7 +2,7 @@ import { defineEventHandler } from 'h3'
 
 export default defineEventHandler((event) => {
   const config = useRuntimeConfig()
-  const baseUrl = config.public.siteUrl || 'https://colormagic.club'
+  const baseUrl = 'https://colormagic.club'
   
   // 为爬虫设置规则，同时指向 sitemap 文件
   const robotsTxt = `

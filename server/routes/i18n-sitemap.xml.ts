@@ -8,7 +8,7 @@ interface LocaleInfo {
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
-  const baseUrl = config.public.siteUrl || 'https://colormagic.club'
+  const baseUrl = 'https://colormagic.club'
   
   // 创建 sitemap stream
   const sitemap = new SitemapStream({
