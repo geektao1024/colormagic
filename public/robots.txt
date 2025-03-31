@@ -1,7 +1,10 @@
 # Block all bots except Googlebot, Bingbot, and other search engines
 
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /login
+Disallow: /app/
+Disallow: /api/
 
 User-agent: Googlebot
 Disallow:
@@ -17,3 +20,5 @@ Disallow:
 
 User-agent: AhrefsSiteAudit
 Disallow:
+
+Sitemap: https://colormagic.club/sitemap.xml

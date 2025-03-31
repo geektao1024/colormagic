@@ -31,7 +31,8 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxt/ui',
     '@nuxtjs/plausible',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxtjs/sitemap'
   ],
   tailwindcss: {
     viewer: false
@@ -56,10 +57,10 @@ export default defineNuxtConfig({
     },
     public: {
       nodeEnv: process.env.NODE_ENV,
-      siteUrl: process.env.SITE_URL ?? 'http://localhost:3000',
+      siteUrl: process.env.SITE_URL ?? 'https://colormagic.club',
       apiUrl: process.env.SITE_URL !== undefined
         ? `${process.env.SITE_URL}/api`
-        : 'http://localhost:3000/api'
+        : 'https://colormagic.club/api'
     }
   },
   routeRules: {
@@ -74,7 +75,7 @@ export default defineNuxtConfig({
   i18n: {
     strategy: 'prefix_except_default',
     defaultLocale: 'en',
-    baseUrl: process.env.SITE_URL ?? 'http://localhost:3000',
+    baseUrl: process.env.SITE_URL ?? 'https://colormagic.club',
     detectBrowserLanguage: false,
     locales: [
       {
