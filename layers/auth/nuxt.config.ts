@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     oauth: {
       redirectUrl: process.env.SITE_URL !== undefined
         ? `${process.env.SITE_URL}/oauth`
-        : 'http://localhost:3000/oauth'
+        : 'https://colormagic.club/oauth'
     }
   }
 });
