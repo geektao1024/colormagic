@@ -55,19 +55,23 @@ export default defineI18nConfig(() => ({
           startButton: "Get Started",
           tool1: {
             title: "AI Palette Generator",
-            description: "Enter keywords or descriptions and let AI analyze and generate professional design-standard color palettes."
+            description: "Enter keywords or descriptions and let AI analyze and generate professional design-standard color palettes.",
+            shortDescription: "Create professional color schemes with advanced AI"
           },
           tool2: {
             title: "Image Color Extractor",
-            description: "Upload images and extract key colors to create professional palettes that match visual styles."
+            description: "Upload images and extract key colors to create professional palettes that match visual styles.",
+            shortDescription: "Extract perfect color schemes from any image"
           },
           tool3: {
             title: "Contrast Checker",
-            description: "Analyze color combinations for WCAG accessibility compliance and get optimization recommendations."
+            description: "Analyze color combinations for WCAG accessibility compliance and get optimization recommendations.",
+            shortDescription: "Ensure your designs meet accessibility standards"
           },
           tool4: {
             title: "Random Color Generator",
-            description: "Generate harmonious random color combinations for fresh creative inspiration and design breakthroughs."
+            description: "Generate harmonious random color combinations for fresh creative inspiration and design breakthroughs.",
+            shortDescription: "Discover unexpected color combinations for creative inspiration"
           }
         },
         useCases: {

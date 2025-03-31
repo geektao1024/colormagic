@@ -53,7 +53,7 @@ const tools = computed(() => [
   {
     title: t('home.tools.tool1.title'),
     description: t('home.tools.tool1.description'),
-    shortDescription: "使用先进AI创建专业调色方案",
+    shortDescription: t('home.tools.tool1.shortDescription'),
     link: '/palette-generator',
     gradientClass: 'bg-gradient-to-br from-[#FF5F6D] to-[#FF8C61]',
     overlayClass: 'from-[#FF5F6D]/80 to-[#FF8C61]/90',
@@ -63,7 +63,7 @@ const tools = computed(() => [
   {
     title: t('home.tools.tool2.title'),
     description: t('home.tools.tool2.description'),
-    shortDescription: "从任何图像提取完美的调色方案",
+    shortDescription: t('home.tools.tool2.shortDescription'),
     link: '/image-color-picker',
     gradientClass: 'bg-gradient-to-br from-[#FFA75F] to-[#FFC371]',
     overlayClass: 'from-[#FFA75F]/80 to-[#FFC371]/90',
@@ -73,7 +73,7 @@ const tools = computed(() => [
   {
     title: t('home.tools.tool3.title'),
     description: t('home.tools.tool3.description'),
-    shortDescription: "确保您的设计符合无障碍标准",
+    shortDescription: t('home.tools.tool3.shortDescription'),
     link: '/contrast-checker',
     gradientClass: 'bg-gradient-to-br from-[#4CAF50] to-[#8BC34A]',
     overlayClass: 'from-[#4CAF50]/80 to-[#8BC34A]/90',
@@ -83,7 +83,7 @@ const tools = computed(() => [
   {
     title: t('home.tools.tool4.title'),
     description: t('home.tools.tool4.description'),
-    shortDescription: "发现意想不到的色彩组合以获取创意灵感",
+    shortDescription: t('home.tools.tool4.shortDescription'),
     link: '/random-color',
     gradientClass: 'bg-gradient-to-br from-[#2196F3] to-[#03A9F4]',
     overlayClass: 'from-[#2196F3]/80 to-[#03A9F4]/90',
