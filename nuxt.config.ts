@@ -23,7 +23,9 @@ export default defineNuxtConfig({
     '@/assets/css/global.css'
   ],
   colorMode: {
-    preference: 'light'
+    preference: 'dark',
+    fallback: 'dark',
+    classSuffix: ''
   },
   extends: [
     '@nuxt/ui-pro'

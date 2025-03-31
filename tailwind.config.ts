@@ -1,8 +1,8 @@
 import type { Config } from 'tailwindcss';
 
 const config: Partial<Config> = {
-  /** @description this is disabled permanently by changing the class from the default `dark:` until we add dark mode support */
-  darkMode: ['class', 'dark-disabled'],
+  /** @description 启用深色模式 */
+  darkMode: 'class',
   theme: {
     extend: {
       boxShadow: {
