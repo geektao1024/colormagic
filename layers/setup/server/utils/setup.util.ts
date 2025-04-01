@@ -21,6 +21,36 @@ interface Modules {
 
 export let modules: Modules;
 
+/**
+ * Attempts to connect to MongoDB with a retry mechanism
+ * @param mongodb MongoDB client
+ * @param logger Logger instance
+ * @returns True if connection successful, false otherwise
+ */
+async function connectWithRetry(mongodb: any, logger: Logger): Promise<boolean> {
+  const MAX_RETRIES = 3;
+  const RETRY_DELAY_MS = 2000;
+  
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      logger.info(`MongoDB connection attempt ${attempt}/${MAX_RETRIES}`);
+      await mongodb.connect();
+      logger.info('MongoDB connection successful');
+      return true;
+    } catch (error) {
+      if (attempt < MAX_RETRIES) {
+        logger.warn(`MongoDB connection failed, retrying in ${RETRY_DELAY_MS/1000}s (${attempt}/${MAX_RETRIES})`, error);
+        await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS));
+      } else {
+        logger.error('MongoDB connection failed after maximum retries', error);
+        return false;
+      }
+    }
+  }
+  
+  return false;
+}
+
 export async function setup(): Promise<void> {
   const logger = getLoggerModule();
 
@@ -28,7 +58,12 @@ export async function setup(): Promise<void> {
     const mongodb = getMongoModule(logger);
 
     logger.info('connecting to configured mongodb');
-    await mongodb.connect();
+    const connected = await connectWithRetry(mongodb, logger);
+    
+    if (!connected) {
+      logger.error('Failed to connect to MongoDB, initialization aborted');
+      return;
+    }
 
     const db = mongodb.db();
 
@@ -53,6 +88,6 @@ export async function setup(): Promise<void> {
       google
     };
   } catch (error) {
-    logger.warn({ err: error }, 'initializing setup failed');
+    logger.error({ err: error }, 'initializing setup failed');
   }
 }
