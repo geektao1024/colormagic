@@ -96,6 +96,15 @@ definePageMeta({
 
 const { t } = useI18n();
 const localePath = useLocalePath();
+const route = useRoute();
+
+// 如果访问的是/app/explore但实际需要的是/palette/explore，则重定向
+// 这样可以确保使用layers/palette中的实现
+onMounted(() => {
+  if (route.path.includes('/app/explore')) {
+    navigateTo(localePath('/palette/explore'));
+  }
+});
 
 const sortBy = ref<PaletteSortBy>(PaletteSortBy.POPULAR);
 const listFilter = computed(() => ({

@@ -9,6 +9,18 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: '/img/apple-touch-icon.png' },
         { rel: 'manifest', href: '/manifest.webmanifest' }
       ],
+      script: [
+        {
+          innerHTML: `
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "r2d4x4qn34");
+          `,
+          type: 'text/javascript'
+        }
+      ],
       meta: [
         { name: 'robots', content: 'index, follow' },
         { name: 'twitter:card', content: 'summary_large_image' },
@@ -72,7 +84,10 @@ export default defineNuxtConfig({
     '/img/**': { headers: { 'cache-control': 'max-age=31536000' } },
     '/palette/explore': { headers: { 'cache-control': 'max-age=0' } },
     '/palette/explore/*': { headers: { 'cache-control': 'max-age=0' } },
-    '/palette/*': { headers: { 'cache-control': 'max-age=2592000' } }
+    '/palette/*': { headers: { 'cache-control': 'max-age=0' } },
+    '/app/explore': { headers: { 'cache-control': 'max-age=0' } }, 
+    '/app/palette': { headers: { 'cache-control': 'max-age=0' } },
+    '/palette/liked': { headers: { 'cache-control': 'max-age=0' } }
   },
   compatibilityDate: '2024-09-23',
   i18n: {

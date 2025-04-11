@@ -463,7 +463,22 @@ const _inlineRuntimeConfig = {
       },
       "/palette/*": {
         "headers": {
-          "cache-control": "max-age=2592000"
+          "cache-control": "max-age=0"
+        }
+      },
+      "/app/explore": {
+        "headers": {
+          "cache-control": "max-age=0"
+        }
+      },
+      "/app/palette": {
+        "headers": {
+          "cache-control": "max-age=0"
+        }
+      },
+      "/palette/liked": {
+        "headers": {
+          "cache-control": "max-age=0"
         }
       },
       "/__sitemap__/style.xsl": {
@@ -1540,7 +1555,7 @@ const _5nN7PybQeQ = (function(nitro) {
 
 const rootDir = "/Users/geektao/000-web-ai/colormagic";
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"robots","content":"index, follow"},{"name":"twitter:card","content":"summary_large_image"},{"name":"googlebot","content":"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"},{"name":"bingbot","content":"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"},{"property":"og:site_name","content":"ColorMagic"},{"name":"google-adsense-account","content":"ca-pub-6152848695010247"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/img/favicon.ico"},{"rel":"icon","type":"image/svg+xml","href":"/img/icon.svg"},{"rel":"apple-touch-icon","href":"/img/apple-touch-icon.png"},{"rel":"manifest","href":"/manifest.webmanifest"}],"style":[],"script":[],"noscript":[],"charset":"utf-8","viewport":"width=device-width, initial-scale=1"};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"robots","content":"index, follow"},{"name":"twitter:card","content":"summary_large_image"},{"name":"googlebot","content":"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"},{"name":"bingbot","content":"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"},{"property":"og:site_name","content":"ColorMagic"},{"name":"google-adsense-account","content":"ca-pub-6152848695010247"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/img/favicon.ico"},{"rel":"icon","type":"image/svg+xml","href":"/img/icon.svg"},{"rel":"apple-touch-icon","href":"/img/apple-touch-icon.png"},{"rel":"manifest","href":"/manifest.webmanifest"}],"style":[],"script":[{"innerHTML":"\n            (function(c,l,a,r,i,t,y){\n                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};\n                t=l.createElement(r);t.async=1;t.src=\"https://www.clarity.ms/tag/\"+i;\n                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);\n            })(window, document, \"clarity\", \"script\", \"r2d4x4qn34\");\n          ","type":"text/javascript"}],"noscript":[],"charset":"utf-8","viewport":"width=device-width, initial-scale=1"};
 
 const appRootTag = "div";
 
@@ -5212,72 +5227,6 @@ const sources$1 = [
                 ]
             },
             {
-                "loc": "/app/contrast-checker",
-                "_sitemap": "en-US",
-                "alternatives": [
-                    {
-                        "hreflang": "en-US",
-                        "href": "/app/contrast-checker"
-                    },
-                    {
-                        "hreflang": "ja-JP",
-                        "href": "/ja/app/contrast-checker"
-                    },
-                    {
-                        "hreflang": "it-IT",
-                        "href": "/it/app/contrast-checker"
-                    },
-                    {
-                        "hreflang": "x-default",
-                        "href": "/app/contrast-checker"
-                    }
-                ]
-            },
-            {
-                "loc": "/ja/app/contrast-checker",
-                "_sitemap": "ja-JP",
-                "alternatives": [
-                    {
-                        "hreflang": "en-US",
-                        "href": "/app/contrast-checker"
-                    },
-                    {
-                        "hreflang": "ja-JP",
-                        "href": "/ja/app/contrast-checker"
-                    },
-                    {
-                        "hreflang": "it-IT",
-                        "href": "/it/app/contrast-checker"
-                    },
-                    {
-                        "hreflang": "x-default",
-                        "href": "/app/contrast-checker"
-                    }
-                ]
-            },
-            {
-                "loc": "/it/app/contrast-checker",
-                "_sitemap": "it-IT",
-                "alternatives": [
-                    {
-                        "hreflang": "en-US",
-                        "href": "/app/contrast-checker"
-                    },
-                    {
-                        "hreflang": "ja-JP",
-                        "href": "/ja/app/contrast-checker"
-                    },
-                    {
-                        "hreflang": "it-IT",
-                        "href": "/it/app/contrast-checker"
-                    },
-                    {
-                        "hreflang": "x-default",
-                        "href": "/app/contrast-checker"
-                    }
-                ]
-            },
-            {
                 "loc": "/app/explore",
                 "_sitemap": "en-US",
                 "alternatives": [
@@ -5604,6 +5553,72 @@ const sources$1 = [
                     {
                         "hreflang": "x-default",
                         "href": "/app/random-color"
+                    }
+                ]
+            },
+            {
+                "loc": "/color-reshape",
+                "_sitemap": "en-US",
+                "alternatives": [
+                    {
+                        "hreflang": "en-US",
+                        "href": "/color-reshape"
+                    },
+                    {
+                        "hreflang": "ja-JP",
+                        "href": "/ja/color-reshape"
+                    },
+                    {
+                        "hreflang": "it-IT",
+                        "href": "/it/color-reshape"
+                    },
+                    {
+                        "hreflang": "x-default",
+                        "href": "/color-reshape"
+                    }
+                ]
+            },
+            {
+                "loc": "/ja/color-reshape",
+                "_sitemap": "ja-JP",
+                "alternatives": [
+                    {
+                        "hreflang": "en-US",
+                        "href": "/color-reshape"
+                    },
+                    {
+                        "hreflang": "ja-JP",
+                        "href": "/ja/color-reshape"
+                    },
+                    {
+                        "hreflang": "it-IT",
+                        "href": "/it/color-reshape"
+                    },
+                    {
+                        "hreflang": "x-default",
+                        "href": "/color-reshape"
+                    }
+                ]
+            },
+            {
+                "loc": "/it/color-reshape",
+                "_sitemap": "it-IT",
+                "alternatives": [
+                    {
+                        "hreflang": "en-US",
+                        "href": "/color-reshape"
+                    },
+                    {
+                        "hreflang": "ja-JP",
+                        "href": "/ja/color-reshape"
+                    },
+                    {
+                        "hreflang": "it-IT",
+                        "href": "/it/color-reshape"
+                    },
+                    {
+                        "hreflang": "x-default",
+                        "href": "/color-reshape"
                     }
                 ]
             },
@@ -6613,7 +6628,10 @@ const sources$1 = [
             ]
         },
         "urls": [
-            "/palette/explore"
+            "/palette/explore",
+            "/app/explore",
+            "/app/palette",
+            "/palette/liked"
         ],
         "sourceType": "app"
     }

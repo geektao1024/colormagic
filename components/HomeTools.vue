@@ -71,6 +71,16 @@ const tools = computed(() => [
     icon: 'i-heroicons-photo'
   },
   {
+    title: 'AI COLOR RESHAPE',
+    description: 'Unlock the true colors of GPT-4o generated images with precise color balancing algorithms.',
+    shortDescription: 'Batch color correction tool for AI images',
+    link: '/color-reshape',
+    gradientClass: 'bg-gradient-to-br from-[#9C27B0] to-[#673AB7]',
+    overlayClass: 'from-[#9C27B0]/80 to-[#673AB7]/90',
+    buttonClass: 'bg-gradient-to-r from-[#9C27B0] to-[#673AB7]',
+    icon: 'i-heroicons-photo'
+  },
+  {
     title: t('home.tools.tool3.title'),
     description: t('home.tools.tool3.description'),
     shortDescription: t('home.tools.tool3.shortDescription'),

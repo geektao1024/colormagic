@@ -14,6 +14,7 @@
   "dependencies": {
     "@apideck/better-ajv-errors": "0.3.6",
     "@ckpack/vue-color": "1.6.0",
+    "@microsoft/clarity": "^1.0.0",
     "@nuxt/ui": "2.18.7",
     "@nuxt/ui-pro": "^1.5.0",
     "@nuxtjs/google-fonts": "3.2.0",

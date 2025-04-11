@@ -7,12 +7,12 @@
         <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-[#FFC371]/10 rounded-full blur-[60px] -z-10"></div>
         
         <div class="relative mb-3">
-          <h1 class="text-2xl font-bold bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] bg-clip-text text-transparent inline-block">Image Color Picker</h1>
+          <h1 class="text-2xl font-bold bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] bg-clip-text text-transparent inline-block">{{ $t('imageColorPicker.title') }}</h1>
           <div class="absolute -bottom-2 left-0 w-16 h-[2px] bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] rounded-full"></div>
         </div>
         
         <p class="text-white/70 mb-4">
-          Extract and pick a beatiful color scheme from any image with AI.
+          {{ $t('imageColorPicker.seoDescription') }}
         </p>
         
         <!-- 表单 -->
@@ -25,7 +25,7 @@
           <!-- 图片上传 -->
           <UFormGroup
             name="dataUrl"
-            label="Upload an Image"
+            :label="$t('imageColorPicker.uploadPlaceholder')"
           >
             <div 
               class="relative border border-dashed border-[#444a5c] rounded-xl p-4 transition-all duration-300 hover:border-[#FF5F6D]/50 group cursor-pointer overflow-hidden mb-3 bg-[#1a1f2e]/80"
@@ -61,7 +61,7 @@
                     </svg>
                   </div>
                 </div>
-                <p class="text-white/70 mb-1 group-hover:text-white transition-colors duration-300">Upload an Image</p>
+                <p class="text-white/70 mb-1 group-hover:text-white transition-colors duration-300">{{ $t('imageColorPicker.uploadPlaceholder') }}</p>
                 <p class="text-white/50 text-sm group-hover:text-white/70 transition-colors duration-300">或点击选择图片</p>
               </div>
               
@@ -85,13 +85,13 @@
             :disabled="!hasImage"
           >
             <span class="absolute inset-0 bg-gradient-to-r from-[#FFC371] to-[#FF5F6D] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-            <span>Generate</span>
+            <span>{{ $t('generate.label') }}</span>
           </UButton>
         </UForm>
 
         <!-- 示例图片 -->
         <div class="mt-6 relative rounded-lg bg-transparent">
-          <h3 class="text-lg font-medium mb-3 text-white">Try an example:</h3>
+          <h3 class="text-lg font-medium mb-3 text-white">{{ $t('home.exampleLabel') }}</h3>
           <div class="grid grid-cols-2 gap-4">
             <div
               v-for="(item, index) in getSampleImages().slice(0, 4)"
@@ -117,7 +117,7 @@
         
         <!-- 结果标题 -->
         <div class="relative mb-6">
-          <h2 class="text-2xl font-bold bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] bg-clip-text text-transparent inline-block">Extracted Colors</h2>
+          <h2 class="text-2xl font-bold bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] bg-clip-text text-transparent inline-block">{{ $t('app.imageColorPicker.result') }}</h2>
           <div class="absolute -bottom-2 left-0 w-16 h-[2px] bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] rounded-full"></div>
         </div>
 
@@ -129,7 +129,7 @@
           <div class="w-16 h-16 bg-gradient-to-br from-[#FF5F6D]/20 to-[#FFC371]/20 rounded-full flex items-center justify-center mb-6 animate-pulse">
             <UIcon name="i-heroicons-arrow-path" class="animate-spin h-8 w-8 text-[#FF5F6D]" />
           </div>
-          <p class="text-lg text-white/70">Extracting colors...</p>
+          <p class="text-lg text-white/70">{{ $t('app.imageColorPicker.extracting') }}</p>
         </div>
 
         <!-- 空状态 -->
@@ -141,7 +141,7 @@
             <UIcon name="i-heroicons-photo" class="text-white/30 h-10 w-10" />
           </div>
           <p class="text-white/50 text-center max-w-xs">
-            Upload an image to extract colors
+            {{ $t('app.imageColorPicker.emptyState') }}
           </p>
         </div>
 
@@ -203,17 +203,334 @@
               class="flex-1 bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] border-0 hover:shadow-lg hover:shadow-[#FF5F6D]/20 transition-all duration-300 transform hover:translate-y-[-2px]"
               @click="savePalette"
             >
-              <span>Save as Palette</span>
+              <span>{{ $t('app.imageColorPicker.savePalette') }}</span>
             </UButton>
             <UButton
               variant="soft"
               class="flex-1 bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors duration-300"
               @click="copyAllColors"
             >
-              <span>Copy All</span>
+              <span>{{ $t('app.imageColorPicker.copyAll') }}</span>
             </UButton>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- SEO营销内容区域 - 添加在两栏下方 -->
+  <div class="mt-16 max-w-7xl mx-auto">
+    <!-- 顶部大型色彩展示 -->
+    <div class="relative mb-12 rounded-2xl overflow-hidden">
+      <div class="grid grid-cols-7 h-48">
+        <div class="bg-[#E56B6F]"></div>
+        <div class="bg-[#EAAC8B]"></div>
+        <div class="bg-[#6D8A96]"></div>
+        <div class="bg-[#1A535C]"></div>
+        <div class="bg-[#4CC9F0]"></div>
+        <div class="bg-[#4361EE]"></div>
+        <div class="bg-[#3A0CA3]"></div>
+      </div>
+      <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-black/50 via-black/30 to-black/50">
+        <div class="text-center px-4">
+          <h2 class="text-4xl font-bold mb-4 text-white">{{ $t('imageColorPicker.marketing.heroTitle') }}</h2>
+          <p class="text-xl text-white/90 max-w-3xl mx-auto">{{ $t('imageColorPicker.marketing.heroSubtitle') }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 工具特性介绍区 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <!-- 特性1: 智能提取 -->
+      <div class="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/5 shadow-xl relative overflow-hidden group transform transition-all duration-300 hover:translate-y-[-5px]">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#E56B6F]/20 rounded-full blur-[60px] -z-10 group-hover:bg-[#E56B6F]/30 transition-all duration-700"></div>
+        
+        <div class="flex items-start mb-4">
+          <div class="p-3 rounded-lg bg-white/10 mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#E56B6F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">{{ $t('imageColorPicker.marketing.feature1Title') }}</h3>
+            <p class="text-white/70">{{ $t('imageColorPicker.marketing.feature1Desc') }}</p>
+          </div>
+        </div>
+        
+        <div class="bg-white/5 rounded-lg p-3 ml-16">
+          <div class="text-sm text-white/60 italic">
+            <span class="text-white/90 font-semibold">PRO TIP:</span> {{ $t('imageColorPicker.marketing.feature1Tip') }}
+          </div>
+        </div>
+      </div>
+      
+      <!-- 特性2: 一键应用 -->
+      <div class="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/5 shadow-xl relative overflow-hidden group transform transition-all duration-300 hover:translate-y-[-5px]">
+        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#4CC9F0]/20 rounded-full blur-[60px] -z-10 group-hover:bg-[#4CC9F0]/30 transition-all duration-700"></div>
+        
+        <div class="flex items-start mb-4">
+          <div class="p-3 rounded-lg bg-white/10 mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#4CC9F0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">{{ $t('imageColorPicker.marketing.feature2Title') }}</h3>
+            <p class="text-white/70">{{ $t('imageColorPicker.marketing.feature2Desc') }}</p>
+          </div>
+        </div>
+        
+        <div class="bg-white/5 rounded-lg p-3 ml-16">
+          <div class="text-sm text-white/60 italic">
+            <span class="text-white/90 font-semibold">PRO TIP:</span> {{ $t('imageColorPicker.marketing.feature2Tip') }}
+          </div>
+        </div>
+      </div>
+      
+      <!-- 特性3: 便捷操作 -->
+      <div class="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/5 shadow-xl relative overflow-hidden group transform transition-all duration-300 hover:translate-y-[-5px]">
+        <div class="absolute -top-10 -left-10 w-40 h-40 bg-[#3A0CA3]/20 rounded-full blur-[60px] -z-10 group-hover:bg-[#3A0CA3]/30 transition-all duration-700"></div>
+        
+        <div class="flex items-start mb-4">
+          <div class="p-3 rounded-lg bg-white/10 mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#3A0CA3]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">{{ $t('imageColorPicker.marketing.feature3Title') }}</h3>
+            <p class="text-white/70">{{ $t('imageColorPicker.marketing.feature3Desc') }}</p>
+          </div>
+        </div>
+        
+        <div class="bg-white/5 rounded-lg p-3 ml-16">
+          <div class="text-sm text-white/60 italic">
+            <span class="text-white/90 font-semibold">PRO TIP:</span> {{ $t('imageColorPicker.marketing.feature3Tip') }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 应用场景展示 -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold mb-8 text-center">{{ $t('imageColorPicker.marketing.useCasesTitle') }}</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- 左侧：应用场景图例 -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden">
+            <div class="h-24 bg-[#E56B6F]"></div>
+            <div class="p-4">
+              <h3 class="text-lg font-medium mb-1">{{ $t('imageColorPicker.marketing.useCase1Title') }}</h3>
+              <p class="text-white/60 text-sm">{{ $t('imageColorPicker.marketing.useCase1Desc') }}</p>
+            </div>
+          </div>
+          
+          <div class="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden">
+            <div class="h-24 bg-[#4CC9F0]"></div>
+            <div class="p-4">
+              <h3 class="text-lg font-medium mb-1">{{ $t('imageColorPicker.marketing.useCase2Title') }}</h3>
+              <p class="text-white/60 text-sm">{{ $t('imageColorPicker.marketing.useCase2Desc') }}</p>
+            </div>
+          </div>
+          
+          <div class="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden">
+            <div class="h-24 bg-[#4361EE]"></div>
+            <div class="p-4">
+              <h3 class="text-lg font-medium mb-1">{{ $t('imageColorPicker.marketing.useCase3Title') }}</h3>
+              <p class="text-white/60 text-sm">{{ $t('imageColorPicker.marketing.useCase3Desc') }}</p>
+            </div>
+          </div>
+          
+          <div class="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden">
+            <div class="h-24 bg-[#3A0CA3]"></div>
+            <div class="p-4">
+              <h3 class="text-lg font-medium mb-1">{{ $t('imageColorPicker.marketing.useCase4Title') }}</h3>
+              <p class="text-white/60 text-sm">{{ $t('imageColorPicker.marketing.useCase4Desc') }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 右侧：详细说明 -->
+        <div class="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/5 shadow-xl">
+          <h3 class="text-xl font-bold mb-4">{{ $t('imageColorPicker.marketing.whyUseTitle') }}</h3>
+          
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-gradient-to-r from-[#E56B6F] to-[#EAAC8B] rounded-full flex items-center justify-center mr-3 mt-0.5 text-white shrink-0">1</span>
+              <div>
+                <h4 class="font-medium mb-1">{{ $t('imageColorPicker.marketing.benefit1Title') }}</h4>
+                <p class="text-white/70 text-sm">{{ $t('imageColorPicker.marketing.benefit1Desc') }}</p>
+              </div>
+            </li>
+            
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-gradient-to-r from-[#4CC9F0] to-[#4361EE] rounded-full flex items-center justify-center mr-3 mt-0.5 text-white shrink-0">2</span>
+              <div>
+                <h4 class="font-medium mb-1">{{ $t('imageColorPicker.marketing.benefit2Title') }}</h4>
+                <p class="text-white/70 text-sm">{{ $t('imageColorPicker.marketing.benefit2Desc') }}</p>
+              </div>
+            </li>
+            
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-gradient-to-r from-[#4361EE] to-[#3A0CA3] rounded-full flex items-center justify-center mr-3 mt-0.5 text-white shrink-0">3</span>
+              <div>
+                <h4 class="font-medium mb-1">{{ $t('imageColorPicker.marketing.benefit3Title') }}</h4>
+                <p class="text-white/70 text-sm">{{ $t('imageColorPicker.marketing.benefit3Desc') }}</p>
+              </div>
+            </li>
+            
+            <li class="flex items-start">
+              <span class="w-6 h-6 bg-gradient-to-r from-[#EAAC8B] to-[#E56B6F] rounded-full flex items-center justify-center mr-3 mt-0.5 text-white shrink-0">4</span>
+              <div>
+                <h4 class="font-medium mb-1">{{ $t('imageColorPicker.marketing.benefit4Title') }}</h4>
+                <p class="text-white/70 text-sm">{{ $t('imageColorPicker.marketing.benefit4Desc') }}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 用户评价 -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold mb-6 text-center">{{ $t('imageColorPicker.marketing.testimonialsTitle') }}</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/5 shadow-xl relative overflow-hidden">
+          <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#E56B6F]/10 rounded-full blur-[60px] -z-10"></div>
+          
+          <div class="flex mb-4">
+            <div class="text-[#FFC371]">
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+            </div>
+          </div>
+          
+          <p class="text-white/80 italic mb-4">{{ $t('imageColorPicker.marketing.testimonial1') }}</p>
+          
+          <div class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-[#E56B6F] to-[#EAAC8B] mr-3 flex items-center justify-center text-white font-bold">L</div>
+            <div>
+              <h4 class="font-medium">{{ $t('imageColorPicker.marketing.testimonial1Name') }}</h4>
+              <p class="text-white/50 text-sm">{{ $t('imageColorPicker.marketing.testimonial1Role') }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/5 shadow-xl relative overflow-hidden">
+          <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#4CC9F0]/10 rounded-full blur-[60px] -z-10"></div>
+          
+          <div class="flex mb-4">
+            <div class="text-[#FFC371]">
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+            </div>
+          </div>
+          
+          <p class="text-white/80 italic mb-4">{{ $t('imageColorPicker.marketing.testimonial2') }}</p>
+          
+          <div class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-[#4CC9F0] to-[#4361EE] mr-3 flex items-center justify-center text-white font-bold">W</div>
+            <div>
+              <h4 class="font-medium">{{ $t('imageColorPicker.marketing.testimonial2Name') }}</h4>
+              <p class="text-white/50 text-sm">{{ $t('imageColorPicker.marketing.testimonial2Role') }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/5 shadow-xl relative overflow-hidden">
+          <div class="absolute -top-10 -left-10 w-40 h-40 bg-[#3A0CA3]/10 rounded-full blur-[60px] -z-10"></div>
+          
+          <div class="flex mb-4">
+            <div class="text-[#FFC371]">
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <UIcon name="i-heroicons-star-half" class="w-5 h-5" />
+            </div>
+          </div>
+          
+          <p class="text-white/80 italic mb-4">{{ $t('imageColorPicker.marketing.testimonial3') }}</p>
+          
+          <div class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-[#3A0CA3] to-[#4361EE] mr-3 flex items-center justify-center text-white font-bold">Z</div>
+            <div>
+              <h4 class="font-medium">{{ $t('imageColorPicker.marketing.testimonial3Name') }}</h4>
+              <p class="text-white/50 text-sm">{{ $t('imageColorPicker.marketing.testimonial3Role') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 常见问题 -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold mb-8 text-center">{{ $t('imageColorPicker.marketing.faqTitle') }}</h2>
+      
+      <div class="space-y-4 max-w-4xl mx-auto">
+        <div class="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden">
+          <div class="p-5 border-b border-white/5">
+            <h3 class="text-lg font-medium">{{ $t('imageColorPicker.marketing.faq1Question') }}</h3>
+          </div>
+          <div class="p-5">
+            <p class="text-white/70">{{ $t('imageColorPicker.marketing.faq1Answer') }}</p>
+          </div>
+        </div>
+        
+        <div class="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden">
+          <div class="p-5 border-b border-white/5">
+            <h3 class="text-lg font-medium">{{ $t('imageColorPicker.marketing.faq2Question') }}</h3>
+          </div>
+          <div class="p-5">
+            <p class="text-white/70">{{ $t('imageColorPicker.marketing.faq2Answer') }}</p>
+          </div>
+        </div>
+        
+        <div class="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden">
+          <div class="p-5 border-b border-white/5">
+            <h3 class="text-lg font-medium">{{ $t('imageColorPicker.marketing.faq3Question') }}</h3>
+          </div>
+          <div class="p-5">
+            <p class="text-white/70">{{ $t('imageColorPicker.marketing.faq3Answer') }}</p>
+          </div>
+        </div>
+        
+        <div class="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden">
+          <div class="p-5 border-b border-white/5">
+            <h3 class="text-lg font-medium">{{ $t('imageColorPicker.marketing.faq4Question') }}</h3>
+          </div>
+          <div class="p-5">
+            <p class="text-white/70">{{ $t('imageColorPicker.marketing.faq4Answer') }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 号召行动 -->
+    <div class="bg-gradient-to-r from-[#1a1f2e]/80 to-[#1a1f2e]/80 backdrop-blur-xl rounded-2xl p-10 border border-white/5 shadow-xl mb-16 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#E56B6F]/5 to-[#3A0CA3]/5"></div>
+      <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#4CC9F0]/10 rounded-full blur-[100px] -z-10"></div>
+      <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-[#E56B6F]/10 rounded-full blur-[100px] -z-10"></div>
+      
+      <div class="max-w-4xl mx-auto text-center relative">
+        <h2 class="text-3xl font-bold mb-4">{{ $t('imageColorPicker.marketing.ctaTitle') }}</h2>
+        <p class="text-white/70 text-lg mb-8 max-w-2xl mx-auto">{{ $t('imageColorPicker.marketing.ctaDesc') }}</p>
+        
+        <UButton
+          size="xl"
+          class="px-8 py-4 bg-gradient-to-r from-[#E56B6F] to-[#4CC9F0] border-0 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-[#E56B6F]/20 transition-all duration-300 transform hover:translate-y-[-2px]"
+          @click="scrollToTop"
+        >
+          {{ $t('imageColorPicker.marketing.ctaButton') }}
+        </UButton>
       </div>
     </div>
   </div>
@@ -408,6 +725,13 @@ function clearUploadedImage(e: Event): void {
   
   if (files.value) {
     files.value = undefined;
+  }
+}
+
+// 添加滚动到顶部的方法
+function scrollToTop(): void {
+  if (window !== undefined) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 </script>

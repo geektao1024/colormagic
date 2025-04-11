@@ -269,6 +269,12 @@ const toolLinks = computed(() => [
     icon: 'i-heroicons-photo'
   },
   {
+    to: localePath('/color-reshape'),
+    label: 'AI COLOR RESHAPE',
+    description: 'Batch color correction tool for AI images',
+    icon: 'i-heroicons-photo'
+  },
+  {
     to: localePath('/contrast-checker'),
     label: t('nav.contrastChecker'),
     description: t('contrastChecker.seoDescription'),

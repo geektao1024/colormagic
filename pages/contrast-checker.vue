@@ -1,8 +1,12 @@
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
     <!-- 左侧工具输入区域 -->
-    <div class="lg:col-span-5 bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-700">
-      <h1 class="text-2xl font-bold mb-4">{{ $t('contrastChecker.title') }}</h1>
+    <div class="lg:col-span-5 bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700 relative overflow-hidden">
+      <div class="absolute -top-10 -left-10 w-40 h-40 bg-[#FF5F6D]/10 rounded-full blur-[60px] -z-10"></div>
+      <div class="relative mb-3">
+        <h1 class="text-2xl font-bold bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] bg-clip-text text-transparent inline-block">{{ $t('contrastChecker.title') }}</h1>
+        <div class="absolute -bottom-2 left-0 w-16 h-[2px] bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] rounded-full"></div>
+      </div>
       <p class="text-lg mb-6 text-gray-300">{{ $t('contrastChecker.seoDescription') }}</p>
       
       <!-- 表单 -->
@@ -33,7 +37,7 @@
         </UFormGroup>
 
         <!-- 前景色调整 -->
-        <div class="border border-gray-700 rounded-lg p-4 space-y-4 bg-gray-850">
+        <div class="border border-gray-700 rounded-lg p-4 space-y-4 bg-gray-750">
           <ColorArrangeSliders v-model="arrangePrimary" />
 
           <!-- 重置按钮 -->
@@ -41,6 +45,7 @@
             v-if="primaryHasChanges"
             :label="$t('palette.resetLabel')"
             block
+            class="bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] hover:shadow-lg transition-all duration-300 text-white border-0"
             @click="resetPrimaryArrange()"
           />
         </div>
@@ -67,7 +72,7 @@
         </UFormGroup>
 
         <!-- 背景色调整 -->
-        <div class="border border-gray-700 rounded-lg p-4 space-y-4 bg-gray-850">
+        <div class="border border-gray-700 rounded-lg p-4 space-y-4 bg-gray-750">
           <ColorArrangeSliders v-model="arrangeSecondary" />
 
           <!-- 重置按钮 -->
@@ -75,6 +80,7 @@
             v-if="secondaryHasChanges"
             :label="$t('palette.resetLabel')"
             block
+            class="bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] hover:shadow-lg transition-all duration-300 text-white border-0"
             @click="resetSecondaryArrange()"
           />
         </div>
@@ -82,12 +88,16 @@
     </div>
 
     <!-- 右侧结果显示区域 -->
-    <div class="lg:col-span-7 bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-700">
+    <div class="lg:col-span-7 bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-700 relative overflow-hidden">
+      <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-[#FFC371]/10 rounded-full blur-[60px] -z-10"></div>
       <!-- 结果标题 -->
-      <h2 class="text-xl font-bold mb-4">{{ $t('app.contrastChecker.result') }}</h2>
+      <div class="relative mb-3">
+        <h2 class="text-xl font-bold bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] bg-clip-text text-transparent inline-block">{{ $t('app.contrastChecker.result') }}</h2>
+        <div class="absolute -bottom-2 left-0 w-16 h-[2px] bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] rounded-full"></div>
+      </div>
 
       <!-- 颜色显示预览 -->
-      <div class="overflow-hidden border border-gray-700 rounded-lg mb-4">
+      <div class="overflow-hidden border border-gray-700 rounded-lg mb-6 mt-4">
         <!-- 颜色块 -->
         <div
           class="h-44 w-full flex justify-center items-center"
@@ -102,40 +112,44 @@
         </div>
 
         <!-- 对比度检查结果 -->
-        <ul class="flex flex-wrap gap-4 p-4 border-t border-gray-700 bg-gray-850">
+        <ul class="flex flex-wrap gap-4 p-4 border-t border-gray-700 bg-gray-750">
           <li>
-            <p class="font-semibold text-sm">
+            <p class="font-semibold text-sm text-gray-300">
               {{ $t('contrastChecker.contrastRatio') }}:
             </p>
             <UBadge
               color="gray"
+              class="bg-gray-600 text-white"
               :label="contrastRatio.toFixed(2)"
             />
           </li>
           <li>
-            <p class="font-semibold text-sm">
+            <p class="font-semibold text-sm text-gray-300">
               {{ $t('contrastChecker.normalText') }}:
             </p>
             <UBadge
               :color="contrastRatio >= 4.5 ? 'green' : 'red'"
+              :class="contrastRatio >= 4.5 ? 'bg-green-500/80 text-white' : 'bg-red-500/80 text-white'"
               :label="contrastRatio < 4.5 ? $t('contrastChecker.failText') : contrastRatio < 7 ? 'AA' : 'AAA'"
             />
           </li>
           <li>
-            <p class="font-semibold text-sm">
+            <p class="font-semibold text-sm text-gray-300">
               {{ $t('contrastChecker.largeText') }}:
             </p>
             <UBadge
               :color="contrastRatio >= 3 ? 'green' : 'red'"
+              :class="contrastRatio >= 3 ? 'bg-green-500/80 text-white' : 'bg-red-500/80 text-white'"
               :label="contrastRatio < 3 ? $t('contrastChecker.failText') : contrastRatio < 4.5 ? 'AA' : 'AAA'"
             />
           </li>
           <li>
-            <p class="font-semibold text-sm">
+            <p class="font-semibold text-sm text-gray-300">
               {{ $t('contrastChecker.uiComponents') }}:
             </p>
             <UBadge
               :color="contrastRatio >= 3 ? 'green' : 'red'"
+              :class="contrastRatio >= 3 ? 'bg-green-500/80 text-white' : 'bg-red-500/80 text-white'"
               :label="contrastRatio < 3 ? $t('contrastChecker.failText') : 'AA'"
             />
           </li>
@@ -145,25 +159,25 @@
       <!-- 颜色块和复制按钮 -->
       <div class="grid grid-cols-2 gap-4 mb-6">
         <!-- 前景色 -->
-        <div class="border border-gray-700 rounded-lg overflow-hidden">
+        <div class="border border-gray-700 rounded-lg overflow-hidden bg-gray-750">
           <div
             class="w-full h-20"
             :style="{ background: arrangedPrimaryColor[0] }"
           />
-          <div class="p-3 flex items-center border-t border-gray-700 bg-gray-850">
-            <div class="text-sm font-medium mr-2">{{ $t('app.contrastChecker.foreground') }}:</div>
+          <div class="p-3 flex items-center border-t border-gray-700">
+            <div class="text-sm font-medium mr-2 text-gray-300">{{ $t('app.contrastChecker.foreground') }}:</div>
             <ColorCopyButtons :hex="arrangedPrimaryColor[0]" />
           </div>
         </div>
         
         <!-- 背景色 -->
-        <div class="border border-gray-700 rounded-lg overflow-hidden">
+        <div class="border border-gray-700 rounded-lg overflow-hidden bg-gray-750">
           <div
             class="w-full h-20"
             :style="{ background: arrangedSecondaryColor[0] }"
           />
-          <div class="p-3 flex items-center border-t border-gray-700 bg-gray-850">
-            <div class="text-sm font-medium mr-2">{{ $t('app.contrastChecker.background') }}:</div>
+          <div class="p-3 flex items-center border-t border-gray-700">
+            <div class="text-sm font-medium mr-2 text-gray-300">{{ $t('app.contrastChecker.background') }}:</div>
             <ColorCopyButtons :hex="arrangedSecondaryColor[0]" />
           </div>
         </div>
@@ -182,7 +196,7 @@
               to="https://www.w3.org/TR/WCAG21/#contrast-minimum"
               target="_blank"
               label="1.4.3 Minimum Contrast (AA)"
-              class="text-primary"
+              class="text-[#FFC371] hover:text-[#FF5F6D] transition-colors"
             />
           </li>
           <li>
@@ -192,7 +206,7 @@
               to="https://www.w3.org/TR/WCAG21/#contrast-enhanced"
               target="_blank"
               label="1.4.6 Enhanced Contrast (AAA)"
-              class="text-primary"
+              class="text-[#FFC371] hover:text-[#FF5F6D] transition-colors"
             />
           </li>
           <li>
@@ -202,7 +216,7 @@
               to="https://www.w3.org/TR/WCAG21/#non-text-contrast"
               target="_blank"
               label="1.4.11 Non-Text Contrast (AA)"
-              class="text-primary"
+              class="text-[#FFC371] hover:text-[#FF5F6D] transition-colors"
             />
           </li>
         </ul>
