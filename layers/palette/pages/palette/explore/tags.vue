@@ -24,6 +24,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  layout: 'app'
+});
+
 const { t } = useI18n();
 
 const paletteFilterOptions = usePaletteFilterOptions([]);

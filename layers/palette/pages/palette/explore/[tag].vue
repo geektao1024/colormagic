@@ -42,7 +42,7 @@
     <!-- palettes -->
     <div v-if="palettes">
       <!-- filters -->
-      <div class="mb-4 flex justify-between gap-4 items-center flex-wrap">
+      <div class="mb-6 p-4 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-xl border border-white/10 flex justify-between gap-4 items-center flex-wrap relative z-30">
         <PaletteFilters
           :tags="tags"
           :color-options="paletteFilterOptions.color.value"
@@ -92,6 +92,10 @@
 <script setup lang="ts">
 import { PaletteSortBy } from '~/layers/palette/types';
 import { type ListPaletteFilterParams } from '~/layers/palette/composables/palette.composable';
+
+definePageMeta({
+  layout: 'app'
+});
 
 const { t } = useI18n();
 const localePath = useLocalePath();
