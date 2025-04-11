@@ -27,6 +27,7 @@
     "ajv-formats": "3.0.1",
     "color.js": "1.2.0",
     "date-fns": "4.1.0",
+    "floating-vue": "^5.2.2",
     "google-auth-library": "9.14.2",
     "got": "11.8.6",
     "jsonwebtoken": "9.0.2",
