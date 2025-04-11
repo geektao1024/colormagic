@@ -8,7 +8,8 @@
         background: color,
         border: '1px solid rgba(255, 255, 255, 0.2)'
       }"
-      @click="isOpen = !isOpen"
+      @click="handleToggle"
+      ref="buttonRef"
     />
     
     <Teleport to="body">
@@ -55,12 +56,25 @@ const color = ref(props.initialColor);
 const isOpen = ref(false);
 const position = ref({ x: 0, y: 0 });
 const pickerPanelRef = ref<HTMLElement | null>(null);
+const buttonRef = ref<HTMLElement | null>(null);
 
-// 当按钮被点击时，计算调色板弹出位置
-function updatePosition(event: MouseEvent) {
-  // 获取点击元素
-  const target = event.currentTarget as HTMLElement;
-  const rect = target.getBoundingClientRect();
+// 处理按钮点击事件，显示/隐藏颜色选择器并更新位置
+function handleToggle() {
+  // 切换显示状态
+  isOpen.value = !isOpen.value;
+  
+  // 如果打开，则立即计算位置
+  if (isOpen.value && buttonRef.value) {
+    updatePosition();
+  }
+}
+
+// 更新调色板位置
+function updatePosition() {
+  if (!buttonRef.value) return;
+  
+  // 获取按钮位置
+  const rect = buttonRef.value.getBoundingClientRect();
   
   // 设置默认位置在按钮下方偏左
   position.value = {
@@ -91,18 +105,12 @@ function update(hex: HexColor): void {
   emits('select', hex);
 }
 
-// 监听按钮点击事件
-watch(isOpen, (newValue) => {
-  if (newValue) {
-    // 使用事件系统获取最近一次鼠标事件
-    document.addEventListener('click', updatePosition, { once: true });
-  }
-});
-
 // 点击外部关闭面板
 onMounted(() => {
   document.addEventListener('mousedown', (event) => {
-    if (isOpen.value && pickerPanelRef.value && !pickerPanelRef.value.contains(event.target as Node)) {
+    if (isOpen.value && pickerPanelRef.value && 
+        !pickerPanelRef.value.contains(event.target as Node) && 
+        buttonRef.value && !buttonRef.value.contains(event.target as Node)) {
       isOpen.value = false;
     }
   });
