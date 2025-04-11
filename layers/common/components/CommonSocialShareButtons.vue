@@ -1,6 +1,6 @@
 <template>
   <ul
-    class="flex gap-1.5 bg-transparent"
+    class="flex gap-1.5"
     :class="{
       'flex-wrap': orientation === 'horizontal',
       'sm:flex-col': orientation === 'vertical'
@@ -13,9 +13,7 @@
       <UButton
         :icon="item.icon"
         :to="item.to"
-        variant="ghost"
-        color="white"
-        class="bg-white/10 hover:bg-white/20 transition-all duration-300"
+        variant="solid"
         target="_blank"
         :aria-label="item.label"
         @click="onClick()"

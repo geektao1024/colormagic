@@ -308,3 +308,17 @@ watch(data, (newValue) => {
   }
 }, { immediate: true });
 </script>
+
+<style>
+/* 修复颜色选择器样式，确保与深色模式兼容 */
+.vc-sketch {
+  background: #202334 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25) !important;
+}
+.vc-sketch-field input {
+  color: white !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+</style>
