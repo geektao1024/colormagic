@@ -1,9 +1,9 @@
 <template>
   <div class="flex">
-    <UPopover>
+    <UPopover :placement="'bottom-start'" :popper="{ strategy: 'fixed' }">
       <UButton
         icon="i-heroicons-paint-brush"
-        class="text-white"
+        class="text-white border border-white/20"
         size="xs"
         :style="{
           background: color,
