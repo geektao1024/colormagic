@@ -6830,33 +6830,80 @@ const index_get$3 = /*#__PURE__*/Object.freeze({
 });
 
 const index_put = defineEventHandler(async (event) => {
-  var _a, _b;
+  var _a;
+  console.log(`[palette/index.put] Request received: ${(/* @__PURE__ */ new Date()).toISOString()}, URL: ${event.node.req.url}`);
   try {
-    if (!((_a = modules) == null ? void 0 : _a.palette)) {
+    if (!modules) {
+      console.error("[palette/index.put] Fatal error: modules object is undefined");
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Server initialization error: Modules not initialized"
+      });
+    }
+    if (!modules.palette) {
+      console.error("[palette/index.put] Fatal error: modules.palette is undefined");
       throw createError({
         statusCode: 500,
         statusMessage: "Server initialization error: Palette service not ready"
       });
     }
+    if (!modules.palette.validation) {
+      console.error("[palette/index.put] Fatal error: modules.palette.validation is undefined");
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Server initialization error: Palette validation service not ready"
+      });
+    }
+    if (typeof modules.palette.validation.getCreateInputQuery !== "function") {
+      console.error("[palette/index.put] Fatal error: modules.palette.validation.getCreateInputQuery is not a function");
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Server initialization error: Palette validation method not available"
+      });
+    }
+    console.log("[palette/index.put] Validating request input");
     const body = await modules.palette.validation.getCreateInputQuery(event);
     if (!body.prompt) {
+      console.error("[palette/index.put] Error: Missing prompt parameter");
       throw createError({
         statusCode: 400,
         statusMessage: "Missing prompt parameter"
       });
     }
+    console.log(`[palette/index.put] Processing prompt: "${body.prompt}"`);
+    if (!modules.palette.service) {
+      console.error("[palette/index.put] Fatal error: modules.palette.service is undefined");
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Server initialization error: Palette service not initialized"
+      });
+    }
+    if (typeof modules.palette.service.create !== "function") {
+      console.error("[palette/index.put] Fatal error: modules.palette.service.create is not a function");
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Server initialization error: Palette create method not available"
+      });
+    }
+    const startTime = Date.now();
+    console.log(`[palette/index.put] Calling palette.service.create with prompt: "${body.prompt}"`);
     const response = await modules.palette.service.create(body.prompt);
+    console.log(`[palette/index.put] Palette created successfully in ${Date.now() - startTime}ms, ID: ${response.id}`);
     return response;
   } catch (error) {
-    console.error("Error generating palette:", error);
+    console.error("[palette/index.put] Error generating palette:", error);
+    console.error("[palette/index.put] Error stack:", error.stack);
     if (error.statusCode) {
+      console.error(`[palette/index.put] Rethrowing HTTP error with status ${error.statusCode}: ${error.statusMessage}`);
       throw error;
-    } else if ((_b = error.message) == null ? void 0 : _b.includes("connection")) {
+    } else if ((_a = error.message) == null ? void 0 : _a.includes("connection")) {
+      console.error("[palette/index.put] Database connection error:", error.message);
       throw createError({
         statusCode: 503,
         statusMessage: "Service temporarily unavailable. Please try again later."
       });
     } else {
+      console.error("[palette/index.put] Unhandled server error:", error.message);
       throw createError({
         statusCode: 500,
         statusMessage: "Failed to generate palette. Please try again later."
