@@ -1,0 +1,1 @@
+export { default } from "file:///Users/geektao/000-web-ai/colormagic/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"

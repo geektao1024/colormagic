@@ -1,0 +1,48 @@
+body {
+    font-family: 'Inter', 'Body Fallback' !important;
+  }
+
+  h1 {
+    @apply text-4xl font-extrabold mb-4
+  }
+  h2 {
+    @apply text-4xl font-extrabold mb-4
+  }
+  h3 {
+    @apply mb-4
+  }
+  h4 {
+    @apply mb-4
+  }
+
+  body {
+    color: #3C424D;
+  }
+
+  /* 移除了旧的垂直导航栏样式 */
+
+  /* 自定义动画 */
+  @keyframes float {
+    0% { transform: translateY(0px) rotate(-12deg); }
+    50% { transform: translateY(-10px) rotate(-8deg); }
+    100% { transform: translateY(0px) rotate(-12deg); }
+  }
+
+  @keyframes float-slow {
+    0% { transform: translateY(0px) rotate(12deg); }
+    50% { transform: translateY(-15px) rotate(15deg); }
+    100% { transform: translateY(0px) rotate(12deg); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-slow {
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  /* 渐变文字 */
+  .gradient-text {
+    @apply bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] bg-clip-text text-transparent;
+  }
