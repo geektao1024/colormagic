@@ -3404,7 +3404,35 @@ function getUserModule(db, logger) {
   };
 }
 
+var InitStatus = /* @__PURE__ */ ((InitStatus2) => {
+  InitStatus2["NOT_STARTED"] = "not_started";
+  InitStatus2["IN_PROGRESS"] = "in_progress";
+  InitStatus2["COMPLETED"] = "completed";
+  InitStatus2["FAILED"] = "failed";
+  return InitStatus2;
+})(InitStatus || {});
 let modules;
+let initStatus = "not_started" /* NOT_STARTED */;
+let initStartTime = 0;
+let initEndTime = 0;
+let lastInitError = null;
+let initPromise = null;
+let initResolve = null;
+let initReject = null;
+function getInitPromise() {
+  if (!initPromise) {
+    initPromise = new Promise((resolve, reject) => {
+      initResolve = resolve;
+      initReject = reject;
+      if (initStatus === "completed" /* COMPLETED */) {
+        resolve();
+      } else if (initStatus === "failed" /* FAILED */ && lastInitError) {
+        reject(lastInitError);
+      }
+    });
+  }
+  return initPromise;
+}
 async function connectWithRetry(mongodb, logger) {
   const MAX_RETRIES = 3;
   const RETRY_DELAY_MS = 2e3;
@@ -3427,21 +3455,41 @@ async function connectWithRetry(mongodb, logger) {
   return false;
 }
 async function setup() {
+  if (initStatus === "in_progress" /* IN_PROGRESS */) {
+    console.log(`[setup] Setup already in progress (started ${Date.now() - initStartTime}ms ago), returning`);
+    return;
+  }
+  if (initStatus === "completed" /* COMPLETED */) {
+    console.log(`[setup] Setup already completed (${Date.now() - initEndTime}ms ago), returning`);
+    return;
+  }
+  initStatus = "in_progress" /* IN_PROGRESS */;
+  initStartTime = Date.now();
   const logger = getLoggerModule();
-  logger.info("Starting server initialization process...");
+  logger.info(`Starting server initialization process at ${(/* @__PURE__ */ new Date()).toISOString()}`);
   try {
     logger.info("Initializing MongoDB connection module");
     const mongodb = getMongoModule(logger);
     logger.info("Connecting to configured MongoDB with retry mechanism");
     const connected = await connectWithRetry(mongodb, logger);
     if (!connected) {
-      logger.error("Failed to connect to MongoDB, initialization aborted");
+      const error = new Error("Failed to connect to MongoDB, initialization aborted");
+      logger.error(error);
+      initStatus = "failed" /* FAILED */;
+      lastInitError = error;
+      if (initReject)
+        initReject(error);
       return;
     }
     logger.info("MongoDB connection successful, getting database instance");
     const db = mongodb.db();
     if (!db) {
-      logger.error("Failed to get database instance from MongoDB connection");
+      const error = new Error("Failed to get database instance from MongoDB connection");
+      logger.error(error);
+      initStatus = "failed" /* FAILED */;
+      lastInitError = error;
+      if (initReject)
+        initReject(error);
       return;
     }
     logger.info("Starting modules initialization and dependency resolution");
@@ -3476,7 +3524,7 @@ async function setup() {
       logger.warn("Some critical modules failed validation, but continuing with available modules");
     }
     logger.info("Setting global modules object with initialized services");
-    modules = {
+    const tempModules = {
       ai,
       logger,
       palette,
@@ -3485,14 +3533,33 @@ async function setup() {
       user,
       google
     };
-    logger.info("Server initialization completed successfully");
+    if (!tempModules.palette || !tempModules.palette.service) {
+      const error = new Error('Critical module "palette" failed initialization');
+      logger.error(error);
+      initStatus = "failed" /* FAILED */;
+      lastInitError = error;
+      if (initReject)
+        initReject(error);
+      return;
+    }
+    modules = tempModules;
+    initStatus = "completed" /* COMPLETED */;
+    initEndTime = Date.now();
+    logger.info(`Server initialization completed successfully in ${initEndTime - initStartTime}ms`);
+    if (initResolve)
+      initResolve();
   } catch (error) {
+    const errorObj = error instanceof Error ? error : new Error("Unknown initialization error");
     logger.error({
       err: error,
-      message: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : void 0,
+      message: errorObj.message,
+      stack: errorObj.stack,
       timestamp: (/* @__PURE__ */ new Date()).toISOString()
     }, "Server initialization failed");
+    initStatus = "failed" /* FAILED */;
+    lastInitError = errorObj;
+    if (initReject)
+      initReject(errorObj);
   }
 }
 
@@ -6732,8 +6799,21 @@ const index_get$4 = defineCachedEventHandler(async (event) => {
   var _a;
   console.log(`[palette/count] Request received: ${(/* @__PURE__ */ new Date()).toISOString()}`);
   try {
+    if (initStatus !== InitStatus.COMPLETED) {
+      console.log(`[palette/count] Server initialization not completed (current status: ${initStatus}), waiting...`);
+      try {
+        await getInitPromise();
+        console.log(`[palette/count] Server initialization completed, proceeding with request`);
+      } catch (initError) {
+        console.error(`[palette/count] Server initialization failed: ${initError.message}`);
+        throw createError({
+          statusCode: 503,
+          statusMessage: "Server still initializing. Please try again later."
+        });
+      }
+    }
     if (!modules) {
-      console.error("[palette/count] Fatal error: modules object is undefined");
+      console.error("[palette/count] Fatal error: modules object is undefined even after initialization");
       throw createError({
         statusCode: 500,
         statusMessage: "Server initialization error: Modules not initialized"
@@ -6833,8 +6913,21 @@ const index_put = defineEventHandler(async (event) => {
   var _a;
   console.log(`[palette/index.put] Request received: ${(/* @__PURE__ */ new Date()).toISOString()}, URL: ${event.node.req.url}`);
   try {
+    if (initStatus !== InitStatus.COMPLETED) {
+      console.log(`[palette/index.put] Server initialization not completed (current status: ${initStatus}), waiting...`);
+      try {
+        await getInitPromise();
+        console.log(`[palette/index.put] Server initialization completed, proceeding with request`);
+      } catch (initError) {
+        console.error(`[palette/index.put] Server initialization failed: ${initError.message}`);
+        throw createError({
+          statusCode: 503,
+          statusMessage: "Server still initializing. Please try again later."
+        });
+      }
+    }
     if (!modules) {
-      console.error("[palette/index.put] Fatal error: modules object is undefined");
+      console.error("[palette/index.put] Fatal error: modules object is undefined even after initialization");
       throw createError({
         statusCode: 500,
         statusMessage: "Server initialization error: Modules not initialized"

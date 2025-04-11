@@ -1,12 +1,28 @@
 import type { PaletteDto } from '../../dtos/palette.dto';
+import { getInitPromise, initStatus, InitStatus } from '~/layers/setup/server/utils/setup.util';
 
 export default defineEventHandler(async (event): Promise<PaletteDto> => {
   console.log(`[palette/index.put] Request received: ${new Date().toISOString()}, URL: ${event.node.req.url}`);
   
   try {
+    // 等待初始化完成
+    if (initStatus !== InitStatus.COMPLETED) {
+      console.log(`[palette/index.put] Server initialization not completed (current status: ${initStatus}), waiting...`);
+      try {
+        await getInitPromise();
+        console.log(`[palette/index.put] Server initialization completed, proceeding with request`);
+      } catch (initError) {
+        console.error(`[palette/index.put] Server initialization failed: ${initError.message}`);
+        throw createError({
+          statusCode: 503,
+          statusMessage: 'Server still initializing. Please try again later.'
+        });
+      }
+    }
+    
     // 详细检查modules对象
     if (!modules) {
-      console.error('[palette/index.put] Fatal error: modules object is undefined');
+      console.error('[palette/index.put] Fatal error: modules object is undefined even after initialization');
       throw createError({
         statusCode: 500,
         statusMessage: 'Server initialization error: Modules not initialized'

@@ -1,4 +1,5 @@
 import type { CountPaletteDto } from '../../../dtos/palette.dto';
+import { getInitPromise, initStatus, InitStatus } from '~/layers/setup/server/utils/setup.util';
 
 /** @description cache this endpoint so it only updates every 5 minutes */
 export default defineCachedEventHandler(async (event): Promise<CountPaletteDto> => {
@@ -6,9 +7,24 @@ export default defineCachedEventHandler(async (event): Promise<CountPaletteDto> 
   console.log(`[palette/count] Request received: ${new Date().toISOString()}`);
   
   try {
+    // 等待初始化完成
+    if (initStatus !== InitStatus.COMPLETED) {
+      console.log(`[palette/count] Server initialization not completed (current status: ${initStatus}), waiting...`);
+      try {
+        await getInitPromise();
+        console.log(`[palette/count] Server initialization completed, proceeding with request`);
+      } catch (initError) {
+        console.error(`[palette/count] Server initialization failed: ${initError.message}`);
+        throw createError({
+          statusCode: 503,
+          statusMessage: 'Server still initializing. Please try again later.'
+        });
+      }
+    }
+    
     // 更详细的模块初始化检查
     if (!modules) {
-      console.error('[palette/count] Fatal error: modules object is undefined');
+      console.error('[palette/count] Fatal error: modules object is undefined even after initialization');
       throw createError({
         statusCode: 500,
         statusMessage: 'Server initialization error: Modules not initialized'
