@@ -6754,17 +6754,91 @@ const clone_put$1 = /*#__PURE__*/Object.freeze({
   default: clone_put
 });
 
-const index_get$6 = defineCachedEventHandler(async (event) => {
-  const params = await modules.palette.validation.getInputParams(event);
-  let userId;
+const index_get$6 = defineEventHandler(async (event) => {
+  var _a;
+  console.log(`[palette/id] Request received: ${(/* @__PURE__ */ new Date()).toISOString()}, URL: ${event.node.req.url}`);
   try {
-    const auth = await modules.auth.service.verify(event);
-    userId = auth.userId;
-  } catch {
+    if (initStatus !== InitStatus.COMPLETED) {
+      console.log(`[palette/id] Server initialization not completed (current status: ${initStatus}), waiting...`);
+      try {
+        await getInitPromise();
+        console.log(`[palette/id] Server initialization completed, proceeding with request`);
+      } catch (initError) {
+        console.error(`[palette/id] Server initialization failed: ${initError.message}`);
+        throw createError({
+          statusCode: 503,
+          statusMessage: "Server still initializing. Please try again later."
+        });
+      }
+    }
+    if (!modules) {
+      console.error("[palette/id] Fatal error: modules object is undefined even after initialization");
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Server initialization error: Modules not initialized"
+      });
+    }
+    if (!modules.palette || !modules.palette.validation) {
+      console.error("[palette/id] Fatal error: modules.palette or validation service is undefined");
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Server initialization error: Palette module not fully initialized"
+      });
+    }
+    const params = await modules.palette.validation.getInputParams(event);
+    let userId;
+    try {
+      if (!modules.auth || !modules.auth.service) {
+        console.warn("[palette/id] Auth module not available, skipping user authentication");
+      } else {
+        const auth = await modules.auth.service.verify(event);
+        userId = auth.userId;
+        console.log(`[palette/id] User authenticated, userId: ${userId}`);
+      }
+    } catch (authError) {
+      console.log("[palette/id] Authentication failed or not provided, proceeding as anonymous user");
+    }
+    if (!modules.palette.service || typeof modules.palette.service.getById !== "function") {
+      console.error("[palette/id] Fatal error: modules.palette.service or getById method is undefined");
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Server initialization error: Palette service not fully initialized"
+      });
+    }
+    console.log(`[palette/id] Getting palette by id: ${params.id}, userId: ${userId || "anonymous"}`);
+    const response = await modules.palette.service.getById(params.id, userId);
+    console.log(`[palette/id] Retrieved palette successfully, id: ${response.id}`);
+    setResponseHeader(event, "Cache-Control", "public, max-age=3600");
+    return response;
+  } catch (error) {
+    console.error("[palette/id] Error details:", {
+      message: error.message,
+      stack: error.stack,
+      name: error.name,
+      code: error.code,
+      statusCode: error.statusCode,
+      requestPath: event.path,
+      requestMethod: event.method,
+      timestamp: (/* @__PURE__ */ new Date()).toISOString()
+    });
+    if (error.statusCode) {
+      console.error(`[palette/id] Re-throwing H3 error with statusCode: ${error.statusCode}`);
+      throw error;
+    } else if ((_a = error.message) == null ? void 0 : _a.includes("connection")) {
+      console.error("[palette/id] Database connection error detected");
+      throw createError({
+        statusCode: 503,
+        statusMessage: "Service temporarily unavailable. Please try again later."
+      });
+    } else {
+      console.error("[palette/id] General server error");
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Failed to get palette. Please try again later."
+      });
+    }
   }
-  const response = await modules.palette.service.getById(params.id, userId);
-  return response;
-}, { maxAge: 60 * 60 });
+});
 
 const index_get$7 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -6795,9 +6869,9 @@ const index_put$3 = /*#__PURE__*/Object.freeze({
   default: index_put$2
 });
 
-const index_get$4 = defineCachedEventHandler(async (event) => {
+const index_get$4 = defineEventHandler(async (event) => {
   var _a;
-  console.log(`[palette/count] Request received: ${(/* @__PURE__ */ new Date()).toISOString()}`);
+  console.log(`[palette/count] Request received: ${(/* @__PURE__ */ new Date()).toISOString()}, URL: ${event.node.req.url}`);
   try {
     if (initStatus !== InitStatus.COMPLETED) {
       console.log(`[palette/count] Server initialization not completed (current status: ${initStatus}), waiting...`);
@@ -6812,6 +6886,7 @@ const index_get$4 = defineCachedEventHandler(async (event) => {
         });
       }
     }
+    console.log("[palette/count] Performing safety checks after initialization");
     if (!modules) {
       console.error("[palette/count] Fatal error: modules object is undefined even after initialization");
       throw createError({
@@ -6846,6 +6921,7 @@ const index_get$4 = defineCachedEventHandler(async (event) => {
     console.log(`[palette/count] Calling service.count with date: ${twentyFourHoursAgo.toISOString()}`);
     const response = await modules.palette.service.count(twentyFourHoursAgo);
     console.log(`[palette/count] Count operation successful, result: ${response}`);
+    setResponseHeader(event, "Cache-Control", "public, max-age=300");
     return {
       count: response
     };
@@ -6877,7 +6953,7 @@ const index_get$4 = defineCachedEventHandler(async (event) => {
       });
     }
   }
-}, { maxAge: 60 * 5 });
+});
 
 const index_get$5 = /*#__PURE__*/Object.freeze({
   __proto__: null,

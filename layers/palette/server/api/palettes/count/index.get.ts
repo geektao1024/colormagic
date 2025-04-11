@@ -1,10 +1,10 @@
 import type { CountPaletteDto } from '../../../dtos/palette.dto';
 import { getInitPromise, initStatus, InitStatus } from '~/layers/setup/server/utils/setup.util';
 
-/** @description cache this endpoint so it only updates every 5 minutes */
-export default defineCachedEventHandler(async (event): Promise<CountPaletteDto> => {
+// 不再使用缓存处理器，改为普通的event handler
+export default defineEventHandler(async (event): Promise<CountPaletteDto> => {
   // 添加更详细的请求日志
-  console.log(`[palette/count] Request received: ${new Date().toISOString()}`);
+  console.log(`[palette/count] Request received: ${new Date().toISOString()}, URL: ${event.node.req.url}`);
   
   try {
     // 等待初始化完成
@@ -21,6 +21,9 @@ export default defineCachedEventHandler(async (event): Promise<CountPaletteDto> 
         });
       }
     }
+    
+    // 额外安全检查
+    console.log('[palette/count] Performing safety checks after initialization');
     
     // 更详细的模块初始化检查
     if (!modules) {
@@ -64,6 +67,9 @@ export default defineCachedEventHandler(async (event): Promise<CountPaletteDto> 
     const response = await modules.palette.service.count(twentyFourHoursAgo);
     console.log(`[palette/count] Count operation successful, result: ${response}`);
 
+    // 设置基本的缓存头
+    setResponseHeader(event, 'Cache-Control', 'public, max-age=300'); // 5分钟缓存
+    
     return {
       count: response
     };
@@ -101,4 +107,4 @@ export default defineCachedEventHandler(async (event): Promise<CountPaletteDto> 
       });
     }
   }
-}, { maxAge: 60 * 5 });
+});
